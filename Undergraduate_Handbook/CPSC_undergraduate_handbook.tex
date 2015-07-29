@@ -209,7 +209,8 @@ When in doubt, heed tips such as this one.
 
 Copyright 2015, Department of Computer Science, California State University, Fullerton.
 
-\chapter{Index}
-\printindex
+% magic to add index to table of contents without being a numbered chapter, from
+% https://en.wikibooks.org/wiki/LaTeX/Indexing#Adding_index_to_table_of_contents
+\cleardoublepage \addcontentsline{toc}{chapter}{Index} \printindex
 
 \end{document}
