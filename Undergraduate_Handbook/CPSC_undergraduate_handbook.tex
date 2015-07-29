@@ -2,10 +2,12 @@
 \documentclass{book}
 
 \usepackage{
+  array,          % vertically-centered tabular cells
   draftwatermark, % diagonal DRAFT watermark
   enumerate,      % enumerate with letter labels
   fancyhdr,       % custom chapter headings
   fullpage,       % reasonable margins
+  graphicx,       % inline graphics (ABET logo)
   hyperref,       % hotlinks
   makeidx,        % index
   tcolorbox,      % background colors in sidebars
@@ -30,7 +32,7 @@
 
 % tip sidebar
 \newenvironment{tip}
-    {\tcolorbox \begin{tabular}{p{2cm} l} \Large{TIP} & }
+    {\tcolorbox \begin{tabular}{m{.5in} m{5in}} \Large{TIP} & }
     {\end{tabular} \endtcolorbox}
 
 \makeindex
@@ -87,7 +89,7 @@ Fullerton, CA 92834-6870
 The Bachelor of Science in Computer Science degree at \campusname is accredited by the Computer Accreditation Commission of ABET (\href{http://www.abet.org}{abet.org}).
 
 \begin{center}
-  \includegraphics{CAC-CMYK-W.pdf}
+  \fbox{ \includegraphics{CAC-CMYK-W.pdf} }
 \end{center}
 
 \section{The programs}
@@ -116,7 +118,8 @@ The Program Educational Objectives and Program Outcomes for the BS CS are \href{
 This handbook covers information on how to earn a Bachelor of Science or a Minor in Computer Science, and contains information relevant to students pursuing them. If you are pursuing a Masters degree, please trade this handbook for a copy of the Graduate Handbook.
 
 Some aspects of our programs are complex, and you may find it difficult to choose among alternatives. In those cases, we present our suggested default choice as a tip, as shown below. You are not required to obey these tips, but doing so is often a wise choice.
-\begin{tip} \index{tips}
+\index{tips}
+\begin{tip}
 When in doubt, heed tips such as this one.
 \end{tip}
 
@@ -126,16 +129,100 @@ When in doubt, heed tips such as this one.
 
 \section{Major requirements at a glance}
 
+The requirements for the CS BS are \href{http://catalog.fullerton.edu/preview_program.php?catoid=2&poid=537&returnto=137}{detailed in the University Catalog}. The requirements fit into 7 categories:
+\begin{enumerate}
+\item \emph{Lower-Division Core:} 100/200-level CPSC courses covering computer programming, data structures, and hands-on software development practices.
+\item \emph{Examination in Programming Proficiency (EPP):} This comprehensive exam establishes mastery of essential Lower-Division Core material, and must be passed before taking Elective Track or most Upper-Division Core courses. \index{examination in programming proficiency (EPP)}
+\item \emph{Mathematics Requirements:} MATH courses laying the foundation for CS theory and practice.
+\item \emph{Science and Mathematics Electives:} Physical science and/or mathematics courses that provide a breadth of scientific knowledge and prepare students for certain upper-division electives.
+\item \emph{Upper-Division Core:} 300/400-level CPSC courses that build directly upon the Lower-Division Core, Mathematics, and Science courses lised above, and complete the computer science canon.
+\item \emph{Elective Track:} You may choose whichever of the five tracks that meshes best with your interests and career goals.
+\item \emph{General Education (GE):} A blend of varied topics that round out a broad, liberal arts education, and satisfy University graduation requirements.
+\end{enumerate}
+  
 \section{Major prerequisite tree}
+\label{section:major_prerequisite_tree}
 
-\section{Lower Division Core}
-\section{Mathematics Core}
-\section{Science and Mathematics Electives}
+TODO
+
+\section{Lower-Division Core}
+The first three courses in the major are CPSC 120, 121, and 131. These courses are prerequisites to practically every other CS course, and must be taken in sequence. It is imperative to complete this sequence quickly and thoroughly in order to make timely progress through the major.
+
+If you come to CSUF with prior programming expertise, you may be able to skip some of these courses. See sections \index{placement examination} and \index{advanced placement (AP)}.
+
+Our introductory programming courses are taught in C++, but cover concepts that are common to practically all programming languages. To establish some breadth of programming fluency, you are required to learn a second object-oriented programming language. This is accomplished by passing one of the 223 courses, or equivalent.
+
 \section{Examination in Programming Proficiency (EPP)}
+\index{examination in programming proficiency (EPP)}
+You must pass the Examination in Programming Proficiency (EPP) before taking most of the 300-level and 400-level Computer Science courses. This examination determines whether you have the basic programming skills needed to succeed in upper division courses. It focuses on the concepts and skills covered in CPSC 121 and CPSC 131.
+
+The EPP is given as part of CPSC 301 (Programming Lab Practicum). You must register in CPSC 301 and attend the first two weeks of the course. After an orientation meeting at the first class meeting, you will take a two-part exam during the second and third class meetings. You will be notified at the fourth meeting whether you have passed or not. If you pass, you may drop the course before the end of the second week of classes. You are responsible for dropping the class; you will not be automatically dropped if you pass the exam. If you do not pass, you must continue in CPSC 301 and work on your programming skills. Passing CPSC 301 is equivalent to passing the Examination in Programming Proficiency.
+
+The EPP is a prerequisite or co-requisite for several 300-level core courses as shown in the prerequisite tree in section \ref{section:major_prerequisite_tree}. These courses are prerequisites in turn for other 300- or 400-level courses. The EPP is a prerequisite for the remaining 400-level courses that aren’t in this thread, except for CPSC 440 (Computer System Architecture). There are very few upper-division courses that you can take without passing the EPP or CPSC 301. You should consult the Department Office for advisement.
+
+\section{Mathematics Requirements}
+
+Before enrolling in Math 150A, you must either have recently passed Math 125 (Pre-calculus), or an equivalent course at another institution, or passed the Mathematics Qualifying Exam. Additional information on this exam is available in the online registration guide, and from the Fullerton Testing Center, University Hall 229, and (657) 278-3838.
+
+Our accreditor, ABET, requires 30 units of mathematics and science courses. This requirement is satisfied by the combination of the Mathematics Requirements and Science and Mathematics Electives.
+
+\section{Science and Mathematics Electives}
+
+As \href{http://catalog.fullerton.edu/preview_program.php?catoid=2&poid=537&returnto=137}{stated in the University Catalog}, you must complete at least 12 units of natural science and/or mathematics courses chosen from a designated list. The list includes only courses that dovetail with CS material, and may fit within a coherent 12-unit curriculum. Due to ABET requirements, you must take at least one course with a hands-on laboratory activity. Laboratory courses are specified in the Catalog.
+
+Choose a set of courses that support each other and your future studies. Plan ahead, and discuss your plan for this requirement with your adviser.
+
+\begin{tip}
+PHYS 225, 225L, 226, 226L, and MATH 250A provide a strong foundation for later CS courses, meet all Science and Mathematics requirements, and fit within 12 units. Take this set of courses unless you are working toward a specific study plan focusing on biology, chemistry, geology, or mathematics.
+\end{tip}
+
+MATH 250A and MATH 250B may not be counted toward both the Scientific Computing Track \index{Scientific Computing (SC) track} and Science and Mathematics Electives. Students who apply these courses toward Science and Mathematics Electives may substitute adviser-approved 400-level CPSC courses to meet the 15-unit requirement of the Scientific Computing Track.
+
+\begin{tip}
+If you are working toward the Scientfic Computing Track, complete this requirement with  MATH 250A, MATH 250B, PHYS 225, and PHYS 225L. This will give you substantial flexibility in choosing electives to finish the track, and help you complete prerequisite courses rapidly.
+\end{tip}
+
 \section{Upper Division Core}
+
+The University requires every bachelor degree candidate to take an upper division writing course. CPSC 311 (Technical Writing for Computer Science) meets the writing course requirement. This course must be passed with a minimum grade of C (2.0) or better.
+
 \section{Elective Tracks}
+\index{elective tracks} \index{tracks}
+Computer Science is a very broad field and the technologies in each area change rapidly. Elective tracks provide you with flexible choices of elective courses so you can quickly adapt to rapid technology advancements and meet your professional goals.
+
+You must select an elective track aimed at your specific career goals. There are five tracks to choose from.
+
+\subsection{Multimedia and Digital Games (MG)}
+\index{Multimedia and Digital Games (MG) track}
+Interactive entertainment and computer-animated visual effects are now part of our mainstream culture. Creating such sophisticated computer graphics in the video games and animations requires a delicate blending of art with science by teams of highly skilled professionals. Artists, animators, writers, designers, and software developers work long hours with cutting-edge technology and tools. This track gives you the necessary skills in multimedia/digital animation and simulation, human/computer interfaces, digital game development and production.
+
+\subsection{Internet and Enterprise Computing (IE)}
+\index{Internet and Enterprise Computing (IE) track}
+The Internet is an essential technology for most computer users. Although Internet technology provides many people with convenience and opportunity, it provides computer scientists with challenges since the Internet applications must be scalable, distributed, secure, and high performance. This track gives you the skills needed to develop enterprise-wide Internet applications using current technologies.
+
+\subsection{Software Engineering (SE)}
+\index{Software Engineering (SE) track}
+Software engineering is the discipline of developing and maintaining large software systems that behave reliably and efficiently. Recently it has evolved in response to the increased importance of software in safety-critical applications and to the growing impact of large and expensive software systems in a wide range of situations. This track will prepare students to have necessary skills on how to assess customer needs, and develop usable and high quality software that meets those needs, and manage large scale software development projects.
+
+\subsection{Scientific Computing (SC)}
+\index{Scientific Computing (SC) track}
+
+Scientific Computing is the field of study concerned with constructing mathematical models and numerical solutions, using computers to solve scientific and engineering problems that typically require massive amounts of computation.
+
+This track gives you the skills needed to construct mathematical models, adapt numerical solutions, and develop computer software to solve scientific and engineering problems. You must take these courses:
+
+Completing the requirements for the Scientific Computing track also satisfies the requirements for a Mathematics minor\index{mathematics minor}.
+
+\subsection{Customized (CT)}
+\index{Customized (CT) track}
+
+This track provides you with great flexibility to build your knowledge and skills in special areas of interest. You can use it to meet the requirements of specific industry sectors or companies, or your personal academic goals.
+
+The Customized track is intended to accomodate student career goals that are not served by any of the four other, more focused, tracks. For example, a student may wish to focus on an emerging area such as cybersecurity, robotics, or data science. If you intend to complete the Customized track, work with your adviser to make a plan for a set of courses that form a coherent course of study aligned with your goals.
+
 \section{Free Electives}
 \label{section:free_electives}
+\index{free elective}
 
 Your Elective Track will require you to take some number of Free Elective courses. You may need to take additional Free Electives if you are short on units due to the Placement Examination, transfer, or other circumstances.
 
@@ -174,9 +261,8 @@ Therefore, the following courses may count as Free Electives:
 \item CPSC 499 - Independent Study (3)
 \end{itemize}
 
-You may be able to use an adviser-approved course not on this list as a Free Elective. Such a course must be at least 3 units and directly related to your academic goals. If this interests you, discuss it with a major adviser. You may need to file a petition with the Department, which may or may not be approved.
+You may be able to use an adviser-approved course not on this list as a Free Elective. Such a course must be at least 3 units and directly related to your academic goals. If this interests you, discuss it with a major adviser. You may need to file a petition;\index{petition} see section \ref{section:petitions}.
 
-\section{Upper division writing requirement}
 \section{General Education (GE)}
 \section{Academic Requirements}
 \section{Double-majoring in a related field}
@@ -187,14 +273,6 @@ You may be able to use an adviser-approved course not on this list as a Free Ele
 \section{Minor prerequisite tree}
 \section{Suggested minor electives}
 \section{For majors in related fields}
-
-\chapter{Major tracks}
-
-\section{Multimedia and Digital Games (MG)}
-\section{Internet and Enterprise Computing (IE)}
-\section{Software Engineering (SE)}
-\section{Scientific Computing (SC)}
-\section{Customized (CT)}
 
 \chapter{Alternative pathways}
 
@@ -213,6 +291,14 @@ If you took the Computer Science AP exam and scored well, you may be able to get
 \section{Internships}
 
 \section{Independent Study}
+
+You may take CPSC 499 Independent Study as a Free Elective\index{free elective}. This course allows you to pursue topics of special interest beyond those of a regular course.
+
+You must submit an Application For Independent Study to the department office, which will supply the form. The application must include a study plan and objectives, and must be approved by a supervising full‑time faculty member and by the department chair.
+
+You may take up to three units per semester, and apply a maximum of three units towards the degree. The University allows a maximum of nine units, but the Computer Science Department allows only three units.
+
+You will not be able to register for this course until the Department grants you permission to do so. You should contact the Department to verify that this has been done.
 
 \chapter{Advisement}
 
@@ -249,6 +335,22 @@ If you are on probation, it is definitely time to see an adviser. Until you do s
 \section{Your Catalog Year}
 \index{catalog year}
 Be sure to follow the course requirements for your catalog year. Your catalog year is determined by the Admissions Office and is a part of your student records. Typically, this is the year you began college; occasionally an adviser may approve a later year.
+
+\section{Petitions}
+\label{section:petitions}
+\index{petition}
+
+If you are subject to unusual circumstances that you feel are not accommodated appropriately by Department policies, you may request an exception by filing a formal petition with the Department. There are two kinds of petitions:
+\begin{enumerate}
+\item File a \emph{Prerequisite Waiver} form when you do not meet the formal prerequisites for a course, yet are indeed prepared to take the course. This may be appropriate if, for example, you have taken equivalent courses at another institution that has no articulation agreement with \campusname, so they do not register as equivalent in Titan Degree Audit.
+\item File a \emph{Petition} form to request an exception to any Department policy other than course prerequisites.
+\end{enumerate}
+
+Blank forms are \href{http://fullerton.edu/ecs/cs/resources/formsDocuments.asp}{available digitally on the web}, or as hard-copies in the Department office. To file a petition, submit a completed hard-copy form to the Department office. Petitions are generally processed within two weeks while Fall or Spring classes are in session, or three weeks during the Summer and Intersession. After this time has elapsed, contact the Department office to find out whether your petition was approved or denied.
+
+The Department strives to minimize prerequisites and make its policies as flexible as possible. As such, established policies handle most situations appropriately, and petitions are only granted in truly exceptional situations. The onus is on the petitioner to justify why a petition ought to be approved; the Department need not justify why a petition is denied. Petition verdicts are final and non-negotiable.
+
+See the \href{http://catalog.fullerton.edu/content.php?catoid=2&navoid=115#Student_Rights}{Student Rights section of the Catalog} for more information on petitions.
 
 \chapter{Resources and Activities}
 
