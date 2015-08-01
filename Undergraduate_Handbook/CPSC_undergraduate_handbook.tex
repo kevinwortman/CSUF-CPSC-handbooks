@@ -9,8 +9,10 @@
   fullpage,       % reasonable margins
   graphicx,       % inline graphics (ABET logo)
   hyperref,       % hotlinks
+  ifthen,         % if statements
   makeidx,        % index
   tcolorbox,      % background colors in sidebars
+  tikz,           % used to draw prerequisite trees and flowcharts
   times,          % font choice
 }
 
@@ -25,7 +27,7 @@
 
 % draft watermark
 \SetWatermarkText{DRAFT}
-\SetWatermarkColor[gray]{0.9}
+\SetWatermarkColor[gray]{0.95}
 
 % name of our campus, so this is consistent everywhere
 \newcommand{\campusname}{CSUF}
@@ -34,6 +36,126 @@
 \newenvironment{tip}
     {\tcolorbox \begin{tabular}{m{.5in} m{5in}} \Large{TIP} & }
     {\end{tabular} \endtcolorbox}
+
+% prerequisite tree figure
+
+\usetikzlibrary{patterns}
+    
+\newcommand{\abstractcourse}[5]{
+  \node [#1] (#3) at (#4, #5) {#2 #3};
+}
+
+\newcommand{\criticalcourse}[4]{
+  \abstractcourse{draw, rounded corners, pattern=north west lines, pattern color=black!30!white}{#1}{#2}{#3}{#4}
+}
+
+\newcommand{\course}[4]{
+  \abstractcourse{draw, rounded corners}{#1}{#2}{#3}{#4}
+}
+
+\newcommand{\straightprereq}[2]{
+  \draw [thick, ->] (#2) -- (#1);
+}
+
+\newcommand{\bentprereq}[3]{
+  \draw [thick, ->] (#2) edge [#3] node {} (#1);
+}
+
+\newcommand{\coreq}[2]{
+  \draw [thick, dashed] (#1) -- (#2);
+}
+
+\newcommand{\introtree}[1]{
+  \criticalcourse{CPSC}{120}{#1}{0}
+  \criticalcourse{CPSC}{121}{#1}{-1}
+  \criticalcourse{CPSC}{131}{#1}{-2}
+  \straightprereq{121}{120}
+  \straightprereq{131}{121}
+}
+
+\newcommand{\majortree}{
+  % there should be exactly 23 courses in the diagram
+  \begin{center}
+    \begin{tikzpicture}
+
+      % MATH 150A-150B-338 column
+      \criticalcourse{MATH}{150A}{0}{0}
+      \criticalcourse{MATH}{150B}{0}{-1}
+      \criticalcourse{MATH}{338}{0}{-4}
+      \straightprereq{150B}{150A}
+      \straightprereq{338}{150B}
+
+      % MATH 270A-270B column
+      \criticalcourse{MATH}{270A}{3}{0}
+      \criticalcourse{MATH}{270B}{3}{-1}
+      \straightprereq{270B}{270A}
+
+      % CPSC 120-121-131-EPP-323 column
+      \introtree{9}
+      \criticalcourse{CPSC}{301}{9}{-4}
+      \course{CPSC}{323}{9}{-5}
+      \straightprereq{301}{131}
+      \straightprereq{323}{301}
+
+      % 335, 481 under 270
+      \criticalcourse{CPSC}{335}{3}{-5}
+      \criticalcourse{CPSC}{481}{3}{-6}
+      \straightprereq{335}{270B} \straightprereq{335}{338} \straightprereq{335}{301}
+      \straightprereq{481}{335}
+      
+      % 131 follow-ons
+      \course{CPSC}{240}{6}{-3}
+      \course{CPSC}{223}{8}{-3}
+      \course{CPSC}{332}{10}{-3}
+      \course{CPSC}{254}{12}{-3}
+      \course{CPSC}{311}{14}{-3}
+      \straightprereq{240}{131} \bentprereq{240}{270A}{bend left=30}
+      \straightprereq{254}{131}
+      \straightprereq{223}{131}
+      \straightprereq{332}{131}
+
+      % 440 below 240
+      \course{CPSC}{440}{6}{-6}
+      \straightprereq{440}{240}
+      
+      % 351, 471 under 254
+      \course{CPSC}{351}{12}{-4}
+      \course{CPSC}{471}{12}{-6}
+      \straightprereq{351}{254} \coreq{351}{301}
+      \straightprereq{471}{351}
+
+      % 362, ENGL 101 aligned with 311
+      \course{ENGL}{101}{14}{0}
+      \course{CPSC}{362}{14}{-5}
+      \straightprereq{311}{101} \bentprereq{311}{131}{bend left=15}
+      \straightprereq{362}{301} \straightprereq{362}{311}
+
+      % 315
+      \course{CPSC}{315}{15}{-4}
+      \straightprereq{315}{311}
+
+      % legend
+      \node at (12.5, -9) {\underline{Legend}};
+      
+      \criticalcourse{time-critical}{course}{10}{-10}
+      
+      \course{}{other course}{10}{-11}
+      
+      \course{}{A}{9}{-12}
+      \course{}{B}{11}{-13}
+      \straightprereq{B}{A}
+      \node at (12, -12.25) {A is a prerequisite for B};
+
+      \course{}{C}{9}{-14}
+      \course{}{D}{11}{-14}
+      \coreq{C}{D}
+      \node at (14, -14) {C and D are corequisites};
+      
+    \end{tikzpicture}
+  \end{center}
+}
+
+% end of prerequisite tree code
 
 \makeindex
 
@@ -176,7 +298,9 @@ Our accreditor, ABET\index{ABET}, requires at least 30 units of mathematics and 
 \section{Major prerequisite tree}
 \label{section:major_prerequisite_tree}
 
-TODO
+The following tree graph diagram illustrates the prerequisite and corequisite relationships between courses required for the major.
+
+\majortree
 
 \section{Lower-Division Core}
 The first three courses in the major are CPSC 120, 121, and 131. These courses must be taken in sequence, and are prerequisites to practically every other CS course.
@@ -327,7 +451,7 @@ You may be able to use an adviser-approved course not on this list as a Free Ele
 
 \section{General Education (GE)}
 
-\newcommand{\gecourselist}{ \href{http://www.fullerton.edu/undergraduate/generaledu/ge_approvedcourses.asp}{How do I find which courses are approved for GE?} }
+\newcommand{\gecourselist}{ \href{http://www.fullerton.edu/undergraduate/generaledu/ge_approvedcourses.asp}{\emph{How do I find which courses are approved for GE?}} }
 
 The Undergraduate Studies \& General Education website (\url{http://www.fullerton.edu/undergraduate/generaledu/}) describes University GE\index{general education} requirements in detail. The list of all GE-approved courses is on the \gecourselist page. \campusname~students are ordinarily required to take at least 51 units and 19 categories of GE courses. CS majors meet some of these requirements through their required courses, and some requirements are waived for CS majors.
 
@@ -594,6 +718,18 @@ Copyright 2015, Department of Computer Science, California State University, Ful
 
 % magic to add index to table of contents without being a numbered chapter, from
 % https://en.wikibooks.org/wiki/LaTeX/Indexing#Adding_index_to_table_of_contents
-\cleardoublepage \addcontentsline{toc}{chapter}{Index} \printindex
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+% prerequisite tree on the back cover, forced to be an even page
+\ifthenelse{\isodd{\thepage}}{
+  \null % otherwise \newpage is ignored
+  \newpage
+}{
+  % no-op
+}
+\majortree
+\pagenumbering{gobble} % no number on the last page
 
 \end{document}
