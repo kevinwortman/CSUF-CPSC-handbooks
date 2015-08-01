@@ -155,6 +155,23 @@
   \end{center}
 }
 
+\newcommand{\minortree}{
+  \begin{center}
+    \begin{tikzpicture}
+
+      \introtree{0}
+
+      \criticalcourse{CPSC}{elective}{0}{-3}
+      \straightprereq{elective}{131}
+
+      \course{GE}{B4}{4}{-2}
+      \course{CPSC}{313}{4}{-3}
+      \straightprereq{313}{B4}
+
+    \end{tikzpicture}
+  \end{center}
+}
+
 % end of prerequisite tree code
 
 \makeindex
@@ -549,7 +566,7 @@ At least 6 units must be upper division (300/400 level) and completed at \campus
 
 \section{Minor prerequisite tree}
 
-TODO
+\minortree
 
 \section{Suggested minor electives}
 
