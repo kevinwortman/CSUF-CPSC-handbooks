@@ -3,6 +3,7 @@
 
 \usepackage{
   array,          % vertically-centered tabular cells
+  calculator,     % arithmetic operators
   draftwatermark, % diagonal DRAFT watermark
   enumerate,      % enumerate with letter labels
   fancyhdr,       % custom chapter headings
@@ -34,8 +35,8 @@
 
 % tip sidebar
 \newenvironment{tip}
-    {\tcolorbox \begin{tabular}{m{.5in} m{5in}} \Large{TIP} & }
-    {\end{tabular} \endtcolorbox}
+               {\tcolorbox \begin{tabular}{m{.5in} m{5in}} \Large{TIP} & }
+               {\end{tabular} \endtcolorbox}
 
 % prerequisite tree figure
 
@@ -174,6 +175,140 @@
 
 % end of prerequisite tree code
 
+% flowchart code
+
+\tikzstyle{flowstyle}=[rotate=-90]
+
+\newenvironment{flowchart}{
+    \begin{tikzpicture}[flowstyle]
+}{
+    \end{tikzpicture}
+}
+
+\newcommand{\flowchartlabel}[3]{
+  \node [flowstyle, align=left] at (#1, #2) {#3};
+}
+
+\newcommand{\fallsemester}[1]{
+  \ifnum #1=1
+      \COPY{0}{\flowX}
+  \else
+      \ADD{\flowX}{2.8}{\flowX}
+  \fi
+
+  \COPY{-2}{\flowY}
+
+  \ADD{\flowX}{1.5}{\sol}
+  \flowchartlabel{\sol}{0}{Year #1}
+
+  \flowchartlabel{\flowX}{-1}{Fall}
+}
+               
+\newcommand{\springsemester}{
+  \ADD{\flowX}{2.8}{\flowX}
+  \COPY{-2}{\flowY}
+
+  \flowchartlabel{\flowX}{-1}{Spring}
+}
+
+\newcommand{\abstractflowchartcourse}[3]{
+  \node [flowstyle, draw, rectangle, fill=#1, minimum width=1.8, minimum height=1.8, align=left] at (\flowX, \flowY) (#2) {#3};
+  \SUBTRACT{\flowY}{2}{\flowY}
+}
+
+\newcommand{\cpsccourse}[1]{
+  \abstractflowchartcourse{red!30!white}{#1}{CPSC #1}
+}
+
+\newcommand{\mathcourse}[1]{
+  \abstractflowchartcourse{blue!30!white}{#1}{MATH #1}
+}
+
+\newcommand{\scienceelective}[2]{
+  \abstractflowchartcourse{green!30!white}{#1}{#2}
+}
+
+\newcommand{\gecourse}[3]{
+  \abstractflowchartcourse{yellow!30!white}{#1}{GE #2 \\ #3}
+}
+
+\newcommand{\trackcourse}[2]{
+  \abstractflowchartcourse{red!10!white}{#1}{#2}
+}
+
+\newcommand{\freeelective}[1]{
+  \trackcourse{#1}{Free \\ Elective}
+}
+
+\newcommand{\flowcharttemplate}[3]{
+  \flowchartlabel{6}{2}{\Large{#1}};
+  
+  \fallsemester{1}
+  \cpsccourse{120}
+  \mathcourse{150A}
+  \mathcourse{270A}
+  \gecourse{A1}{A.1}{HCOM 102}
+  \gecourse{A2}{A.2}{ENGL 101}
+ 
+  \springsemester
+  \cpsccourse{121} \straightprereq{121}{120}
+  \mathcourse{150B} \straightprereq{150B}{150A}
+  \mathcourse{270B} \straightprereq{270B}{270A}
+  \gecourse{C1}{C.1}{ART 101}
+  \gecourse{C2}{C.2}{LING 106}
+  
+  \fallsemester{2}
+  \cpsccourse{131} \straightprereq{131}{121}
+  \mathcourse{338} \straightprereq{338}{150B}
+  \gecourse{D3}{D.3}{AMST 201}
+  \gecourse{D4}{D.4}{POSC 100}
+  \gecourse{C4}{C.4}{HIST 110A}
+  
+  \springsemester
+  \cpsccourse{254} \straightprereq{254}{131}
+  \scienceelective{250A}{MATH 250A} \bentprereq{250A}{150B}{bend left}
+  \cpsccourse{#2}
+  \cpsccourse{240}
+  \cpsccourse{311} \bentprereq{311}{A2}{bend right}
+  
+  \fallsemester{3}
+  \cpsccourse{301} \straightprereq{301}{254} \bentprereq{301}{131}{bend left=15}
+  \scienceelective{225}{PHYS 225+L}
+  \cpsccourse{332}
+  \gecourse{C3}{C.3}{MUS 303} \bentprereq{C3}{C1}{bend right=25}
+  \cpsccourse{315} \straightprereq{315}{311}
+  
+  \springsemester
+  \cpsccourse{335} \straightprereq{335}{301}
+  \scienceelective{226}{PHYS 226+L} \straightprereq{226}{225}
+  \cpsccourse{351}
+  \cpsccourse{323}
+  \cpsccourse{362} \bentprereq{362}{311}{bend right}
+  
+  \fallsemester{4}
+  \cpsccourse{481} \straightprereq{481}{335}
+  \gecourse{D1}{D.1}{EGCE 401} \bentprereq{D1}{150A}{bend right=12.5}
+  \cpsccourse{471} \straightprereq{471}{351}
+  \cpsccourse{440} \bentprereq{440}{240}{bend left=20}
+  #3
+}
+
+\newcommand{\ietrack}{
+  \begin{flowchart}
+    \flowcharttemplate{Internet and Enterprise Computing Technologies (IE)}{223J}{\trackcourse{431}{CPSC 431}}
+
+    \springsemester
+    \trackcourse{473}{CPSC 473}
+    \trackcourse{476}{CPSC 476}
+    \freeelective{FE1}
+    \freeelective{FE2}
+    
+  \end{flowchart}
+}
+
+% end of flowchart code
+
+% initialize index
 \makeindex
 
 \begin{document}
@@ -312,6 +447,7 @@ The requirements for the CS BS are \href{http://catalog.fullerton.edu/preview_pr
 \end{enumerate}
   
 Our accreditor, ABET\index{ABET}, requires at least 30 units of mathematics and science courses. The Mathematics Requirements and Science and Mathematics Electives together satisfy this 30-unit requirement.
+
 \section{Major prerequisite tree}
 \label{section:major_prerequisite_tree}
 
@@ -335,7 +471,7 @@ Choose \emph{CPSC 223C - C Programming} if you plan on taking security-related c
 \end{tip}
 
 \begin{tip}
-Choose \emph{CPSC 223J - Java Programming} if you plan on taking web-related courses later on. Definitely take 223J if you plan on following the Internet and Enterprise Computing Technologies (IE) track\index{Internet and Enterprise Computing (IE) track}.
+Choose \emph{CPSC 223J - Java Programming} if you plan on taking web-related courses later on. Definitely take 223J if you plan on following the \emph{Internet and Enterprise Computing Technologies (IE)} track\index{Internet and Enterprise Computing (IE) track}.
 \end{tip}
 
 \begin{tip}
@@ -347,7 +483,7 @@ Choose \emph{CPSC 223J - Java Programming} if you plan on taking web-related cou
 You must pass the Examination in Programming Proficiency (EPP) before taking most of the 300-level and 400-level Computer Science courses. This examination determines whether you have the basic programming skills needed to succeed in upper division courses. It focuses on the concepts and skills covered in CPSC 121 and CPSC 131.
 
 \begin{tip}
-  Take the EPP as soon as possible after completing CPSC 131.
+  Take the EPP as soon as possible after completing CPSC 131 and 254.
   \end{tip}
 
 The EPP is given as part of CPSC 301 (Programming Lab Practicum). You must register in CPSC 301 and attend the first two weeks of the course. After an orientation meeting at the first class meeting, you will take a two-part exam during the second and third class meetings. You will be notified at the fourth meeting whether you have passed or not. If you pass, you may drop the course before the end of the second week of classes. You are responsible for dropping the class; you will not be automatically dropped if you pass the exam. If you do not pass, you must continue in CPSC 301 and work on your programming skills. Passing CPSC 301 is equivalent to passing the Examination in Programming Proficiency.
@@ -503,7 +639,7 @@ The following table lists the remaining GE categories, and an example course for
   C.2. Introduction to Humanities (3 units) & LING 106 - Language and Linguistics (3) (many alternatives) \\ \hline
   C.3. Explorations of Arts and Humanities (3 units) & MUS 303 - World Music (3); C.1 is prerequisite (many alternatives) \\ \hline
   C.4. Origins of World Civilization (3 units) & HIST 110A - World Civilizations to the 16th Century (3) \\ \hline
-  D.1. Introduction to Social Sciences (3 units) & EGCE/CP/EE/ME 401 \\ \hline
+  D.1. Introduction to Social Sciences (3 units) & EGCE/CP/EE/ME 401; MATH 150A is prerequisite \\ \hline
   D.3. American History, Institutions and Values (3 units) & AMST 201 - Introduction to American Studies (3) (many alternatives) \\ \hline
   D.4. American Government (3 units) & POSC 100 - American Government (3) \\ \hline
   Z. Cultural Diversity & already satisfied by MUS 303 above \\ \hline
@@ -728,6 +864,8 @@ See the \href{http://catalog.fullerton.edu/content.php?catoid=2&navoid=115#Stude
 \chapter{Progress Flowcharts}
 
 TODO
+
+\clearpage \ietrack
 
 \chapter{Credits and Revision History}
 
