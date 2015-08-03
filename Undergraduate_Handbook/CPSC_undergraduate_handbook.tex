@@ -91,11 +91,13 @@
       \criticalcourse{MATH}{270B}{3}{-1}
       \straightprereq{270B}{270A}
 
-      % CPSC 120-121-131-EPP-323 column
+      % CPSC 120-121-131-254-EPP-323 column
       \introtree{9}
+      \criticalcourse{CPSC}{254}{9}{-3}
       \criticalcourse{CPSC}{301}{9}{-4}
       \course{CPSC}{323}{9}{-5}
-      \straightprereq{301}{131}
+      \straightprereq{254}{131}
+      \straightprereq{301}{254}
       \straightprereq{323}{301}
 
       % 335, 481 under 270
@@ -105,18 +107,16 @@
       \straightprereq{481}{335}
       
       % 131 follow-ons
-      \course{CPSC}{240}{6}{-3}
-      \course{CPSC}{223}{8}{-3}
-      \course{CPSC}{332}{10}{-3}
-      \course{CPSC}{254}{12}{-3}
+      \course{CPSC}{240}{5}{-3}
+      \course{CPSC}{223}{7}{-3}
+      \course{CPSC}{332}{11}{-3}
       \course{CPSC}{311}{14}{-3}
       \straightprereq{240}{131} \bentprereq{240}{270A}{bend left=30}
-      \straightprereq{254}{131}
       \straightprereq{223}{131}
       \straightprereq{332}{131}
 
       % 440 below 240
-      \course{CPSC}{440}{6}{-6}
+      \course{CPSC}{440}{5}{-6}
       \straightprereq{440}{240}
       
       % 351, 471 under 254
