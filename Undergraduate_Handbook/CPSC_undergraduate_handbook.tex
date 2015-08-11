@@ -12,11 +12,13 @@
   hyperref,       % hotlinks
   ifthen,         % if statements
   makeidx,        % index
-  tcolorbox,      % background colors in sidebars
+  tcolorbox,      % background colors in Tip sidebars
   tikz,           % used to draw prerequisite trees and flowcharts
   times,          % font choice
 }
 
+\usetikzlibrary{patterns} % for time-critical course hatching
+    
 % Don't say "Chapter 3", just "3"
 \renewcommand{\chaptername}{}
 
@@ -30,9 +32,6 @@
 \SetWatermarkText{DRAFT}
 \SetWatermarkColor[gray]{0.9}
 
-% name of our campus, so this is consistent everywhere
-\newcommand{\campusname}{CSUF}
-
 % tip sidebar
 \newenvironment{tip}{
   \tcolorbox \begin{tabular}{m{.5in} m{5in}} \Large{TIP} &
@@ -40,157 +39,179 @@
   \end{tabular} \endtcolorbox
 }
 
-% names of tracks
-\newcommand{\mgtrackname}{Multimedia and Digital Games (MG)}
-\newcommand{\ietrackname}{Internet and Enterprise Computing (IE)}
-\newcommand{\setrackname}{Software Engineering (SE)}
-\newcommand{\sctrackname}{Scientific Computing (SC)}
-\newcommand{\cttrackname}{Customized (CT)}
-\newcommand{\ctbiotrackname}{\cttrackname --- Bioinformatics focus}
-\newcommand{\ctsecuritytrackname}{\cttrackname --- Cybersecurity focus}
+% name of our campus, so this is consistent everywhere (i.e. "CSUF",
+% not "CSU Fullerton")
+\newcommand{\CampusName}{CSUF}
 
-% track entries
-\newcommand{\maketrackindex}[2]{
+% names of tracks
+\newcommand{\MgTrackName}{Multimedia and Digital Games (MG)}
+\newcommand{\IeTrackName}{Internet and Enterprise Computing (IE)}
+\newcommand{\SeTrackName}{Software Engineering (SE)}
+\newcommand{\ScTrackName}{Scientific Computing (SC)}
+\newcommand{\cttrackname}{Customized (CT)}
+\newcommand{\CtBioTrackName}{\cttrackname --- Bioinformatics focus}
+\newcommand{\CtSecurityTrackName}{\cttrackname --- Cybersecurity focus}
+
+% track index entries
+\newcommand{\MakeTrackIndexCommand}[2]{
   \newcommand{#1}{\index{track!#2}}
 }
-\maketrackindex{\mgtrackindex}{\mgtrackname}
-\maketrackindex{\ietrackindex}{\ietrackname}
-\maketrackindex{\setrackindex}{\setrackname}
-\maketrackindex{\sctrackindex}{\sctrackname}
-\maketrackindex{\cttrackindex}{\cttrackname}
-\maketrackindex{\ctbiotrackindex}{\ctbiotrackname}
-\maketrackindex{\ctsecuritytrackindex}{\ctsecuritytrackname}
+\MakeTrackIndexCommand{\MgTrackIndex}{\MgTrackName}
+\MakeTrackIndexCommand{\IeTrackIndex}{\IeTrackName}
+\MakeTrackIndexCommand{\SeTrackIndex}{\SeTrackName}
+\MakeTrackIndexCommand{\ScTrackIndex}{\ScTrackName}
+\MakeTrackIndexCommand{\cttrackindex}{\cttrackname}
+\MakeTrackIndexCommand{\CtBioTrackIndex}{\CtBioTrackName}
+\MakeTrackIndexCommand{\CtSecurityTrackIndex}{\CtSecurityTrackName}
 
 % prerequisite tree figure
 
-\usetikzlibrary{patterns}
-    
-\newcommand{\abstractcourse}[5]{
+% \GenericTreeCourse{tikz style}{tikz identifier}{X-coord}{Y-coord}{CPSC/MATH/ENGL}{course number}
+% draw a low-level course node
+\newcommand{\GenericTreeCourse}[5]{
   \node [#1] (#3) at (#4, #5) {#2 #3};
 }
 
-\newcommand{\criticalcourse}[4]{
-  \abstractcourse{draw, rounded corners, pattern=north west lines, pattern color=black!30!white}{#1}{#2}{#3}{#4}
+% \TimeCriticalTreeCourse{tikz identifier}{X-coord}{Y-coord}{CPSC/MATH/ENGL}{course number}
+% draw a time-critical course node
+\newcommand{\TimeCriticalTreeCourse}[4]{
+  \GenericTreeCourse{draw, rounded corners, pattern=north west lines, pattern color=black!30!white}{#1}{#2}{#3}{#4}
 }
 
-\newcommand{\course}[4]{
-  \abstractcourse{draw, rounded corners}{#1}{#2}{#3}{#4}
+% \TreeCourse{tikz identifier}{X-coord}{Y-coord}{CPSC/MATH/ENGL}{course number}
+% draw a non-time-critical course node
+\newcommand{\TreeCourse}[4]{
+  \GenericTreeCourse{draw, rounded corners}{#1}{#2}{#3}{#4}
 }
 
-\newcommand{\straightprereq}[2]{
+% \StraightPrereq{subject course identifier}{course identifier it depends upon}
+% straight-line prerequisite edge
+\newcommand{\StraightPrereq}[2]{
   \draw [thick, ->] (#2) -- (#1);
 }
 
-\newcommand{\bentprereq}[3]{
+% \BentPrereq{subject course identifier}{course identifier it depends upon}
+% bent (curved) prerequisite edge
+\newcommand{\BentPrereq}[3]{
   \draw [thick, ->] (#2) edge [#3] node {} (#1);
 }
 
-\newcommand{\coreq}[2]{
+% \Coreq{subject course identifier}{course identifier it depends upon}
+% straight corequisite edge
+\newcommand{\Coreq}[2]{
   \draw [thick, dashed] (#1) -- (#2);
 }
 
-\newcommand{\introtree}[1]{
-  \criticalcourse{CPSC}{120}{#1}{0}
-  \criticalcourse{CPSC}{121}{#1}{-1}
-  \criticalcourse{CPSC}{131}{#1}{-2}
-  \straightprereq{121}{120}
-  \straightprereq{131}{121}
+% \IntroTree{X-coord}
+% draw nodes for the 120-121-131 intro tree; used for both the major
+% and minor figures
+\newcommand{\IntroTree}[1]{
+  \TimeCriticalTreeCourse{CPSC}{120}{#1}{0}
+  \TimeCriticalTreeCourse{CPSC}{121}{#1}{-1}
+  \TimeCriticalTreeCourse{CPSC}{131}{#1}{-2}
+  \StraightPrereq{121}{120}
+  \StraightPrereq{131}{121}
 }
 
-\newcommand{\majortree}{
+% \MajorTree
+% draw the entire major prerequisite tree. This is a macro since it
+% appears twice.
+\newcommand{\MajorTree}{
   % there should be exactly 23 courses in the diagram
   \begin{center}
     \begin{tikzpicture}
 
       % MATH 150A-150B-338 column
-      \criticalcourse{MATH}{150A}{0}{0}
-      \criticalcourse{MATH}{150B}{0}{-1}
-      \criticalcourse{MATH}{338}{0}{-4}
-      \straightprereq{150B}{150A}
-      \straightprereq{338}{150B}
+      \TimeCriticalTreeCourse{MATH}{150A}{0}{0}
+      \TimeCriticalTreeCourse{MATH}{150B}{0}{-1}
+      \TimeCriticalTreeCourse{MATH}{338}{0}{-4}
+      \StraightPrereq{150B}{150A}
+      \StraightPrereq{338}{150B}
 
       % MATH 270A-270B column
-      \criticalcourse{MATH}{270A}{3}{0}
-      \criticalcourse{MATH}{270B}{3}{-1}
-      \straightprereq{270B}{270A}
+      \TimeCriticalTreeCourse{MATH}{270A}{3}{0}
+      \TimeCriticalTreeCourse{MATH}{270B}{3}{-1}
+      \StraightPrereq{270B}{270A}
 
       % CPSC 120-121-131-254-EPP-323 column
-      \introtree{9}
-      \criticalcourse{CPSC}{254}{9}{-3}
-      \criticalcourse{CPSC}{301}{9}{-4}
-      \course{CPSC}{323}{9}{-5}
-      \straightprereq{254}{131}
-      \straightprereq{301}{254}
-      \straightprereq{323}{301}
+      \IntroTree{9}
+      \TimeCriticalTreeCourse{CPSC}{254}{9}{-3}
+      \TimeCriticalTreeCourse{CPSC}{301}{9}{-4}
+      \TreeCourse{CPSC}{323}{9}{-5}
+      \StraightPrereq{254}{131}
+      \StraightPrereq{301}{254}
+      \StraightPrereq{323}{301}
 
       % 335, 481 under 270
-      \criticalcourse{CPSC}{335}{3}{-5}
-      \criticalcourse{CPSC}{481}{3}{-6}
-      \straightprereq{335}{270B} \straightprereq{335}{338} \straightprereq{335}{301}
-      \straightprereq{481}{335}
+      \TimeCriticalTreeCourse{CPSC}{335}{3}{-5}
+      \TimeCriticalTreeCourse{CPSC}{481}{3}{-6}
+      \StraightPrereq{335}{270B} \StraightPrereq{335}{338} \StraightPrereq{335}{301}
+      \StraightPrereq{481}{335}
       
       % 131 follow-ons
-      \course{CPSC}{240}{5}{-3}
-      \course{CPSC}{223}{7}{-3}
-      \course{CPSC}{332}{11}{-3}
-      \course{CPSC}{311}{14}{-3}
-      \straightprereq{240}{131} \bentprereq{240}{270A}{bend left=30}
-      \straightprereq{223}{131}
-      \straightprereq{332}{131}
+      \TreeCourse{CPSC}{240}{5}{-3}
+      \TreeCourse{CPSC}{223}{7}{-3}
+      \TreeCourse{CPSC}{332}{11}{-3}
+      \TreeCourse{CPSC}{311}{14}{-3}
+      \StraightPrereq{240}{131} \BentPrereq{240}{270A}{bend left=30}
+      \StraightPrereq{223}{131}
+      \StraightPrereq{332}{131}
 
       % 440 below 240
-      \course{CPSC}{440}{5}{-6}
-      \straightprereq{440}{240}
+      \TreeCourse{CPSC}{440}{5}{-6}
+      \StraightPrereq{440}{240}
       
       % 351, 471 under 254
-      \course{CPSC}{351}{12}{-4}
-      \course{CPSC}{471}{12}{-6}
-      \straightprereq{351}{254} \coreq{351}{301}
-      \straightprereq{471}{351}
+      \TreeCourse{CPSC}{351}{12}{-4}
+      \TreeCourse{CPSC}{471}{12}{-6}
+      \StraightPrereq{351}{254} \Coreq{351}{301}
+      \StraightPrereq{471}{351}
 
       % 362, ENGL 101 aligned with 311
-      \course{ENGL}{101}{14}{0}
-      \course{CPSC}{362}{14}{-5}
-      \straightprereq{311}{101} \bentprereq{311}{131}{bend left=15}
-      \straightprereq{362}{301} \straightprereq{362}{311}
+      \TreeCourse{ENGL}{101}{14}{0}
+      \TreeCourse{CPSC}{362}{14}{-5}
+      \StraightPrereq{311}{101} \BentPrereq{311}{131}{bend left=15}
+      \StraightPrereq{362}{301} \StraightPrereq{362}{311}
 
       % 315
-      \course{CPSC}{315}{15}{-4}
-      \straightprereq{315}{311}
+      \TreeCourse{CPSC}{315}{15}{-4}
+      \StraightPrereq{315}{311}
 
       % legend
       \node at (12.5, -9) {\underline{Legend}};
       
-      \criticalcourse{time-critical}{course}{10}{-10}
+      \TimeCriticalTreeCourse{time-critical}{course}{10}{-10}
       
-      \course{}{other course}{10}{-11}
+      \TreeCourse{}{other course}{10}{-11}
       
-      \course{}{A}{9}{-12}
-      \course{}{B}{11}{-13}
-      \straightprereq{B}{A}
+      \TreeCourse{}{A}{9}{-12}
+      \TreeCourse{}{B}{11}{-13}
+      \StraightPrereq{B}{A}
       \node at (12, -12.25) {A is a prerequisite for B};
 
-      \course{}{C}{9}{-14}
-      \course{}{D}{11}{-14}
-      \coreq{C}{D}
+      \TreeCourse{}{C}{9}{-14}
+      \TreeCourse{}{D}{11}{-14}
+      \Coreq{C}{D}
       \node at (14, -14) {C and D are corequisites};
       
     \end{tikzpicture}
   \end{center}
 }
 
-\newcommand{\minortree}{
+% \MinorTree
+% draw the entire minor prerequisite tree
+\newcommand{\MinorTree}{
   \begin{center}
     \begin{tikzpicture}
 
-      \introtree{0}
+      \IntroTree{0}
 
-      \criticalcourse{CPSC}{elective}{0}{-3}
-      \straightprereq{elective}{131}
+      \TimeCriticalTreeCourse{CPSC}{elective}{0}{-3}
+      \StraightPrereq{elective}{131}
 
-      \course{GE}{B4}{4}{-2}
-      \course{CPSC}{313}{4}{-3}
-      \straightprereq{313}{B4}
+      \TreeCourse{GE}{B4}{4}{-2}
+      \TreeCourse{CPSC}{313}{4}{-3}
+      \StraightPrereq{313}{B4}
 
     \end{tikzpicture}
   \end{center}
@@ -200,217 +221,261 @@
 
 % flowchart code
 
-\tikzstyle{flowstyle}=[rotate=-90]
+% rotated 90 degrees clockwise, for landscape mode
+\tikzstyle{FlowchartStyle}=[rotate=-90]
 
-\newenvironment{flowchart}{
-    \begin{tikzpicture}[flowstyle]
+% \FlowchartLabel{X-coord}{Y-coord}{text}
+% draw a label
+\newcommand{\FlowchartLabel}[3]{
+  \node [FlowchartStyle, align=left] at (#1, #2) {#3};
+}
+
+% \FlowchartBox{fill color}{tikz identifier}{label text}{X-coord}{Y-coord}
+% draw a flowchart box with an edge and fill color
+\newcommand{\FlowchartBox}[5]{
+  \node [FlowchartStyle, draw, rectangle, fill=#1, minimum width=1.8, minimum height=1.8, align=left] at (#4, #5) (#2) {#3};
+}
+
+% \begin{flowchart}[title text]
+%    (declare semesters and courses with macros below)
+% \end{flowchart}
+% class flowchart environment
+\newenvironment{flowchart}[1]{
+  % environment start
+  \begin{tikzpicture}[FlowchartStyle]
+
+  % title
+  \FlowchartLabel{6}{2}{{\LARGE #1}}
 }{
-    \end{tikzpicture}
+  % environment end
+
+  % legend
+  \FlowchartLabel{0}{-12}{Color Legend:}
+  \FlowchartBox{\CpscColor}{CpscLegend}{Core Course}{3}{-12}
+  \FlowchartBox{\TrackColor}{TrackLegend}{Track Course}{6}{-12}
+  \FlowchartBox{\MathColor}{MathLegend}{Math Req.}{9}{-12}
+  \FlowchartBox{\ScienceColor}{ScienceLegend}{Science/Math Elect.}{12}{-12}
+  \FlowchartBox{\GeColor}{GeLegend}{GE}{15}{-12}
+
+  \end{tikzpicture}
 }
 
-\newcommand{\flowchartlabel}[3]{
-  \node [flowstyle, align=left] at (#1, #2) {#3};
-}
+% these parameters are kind of a quick and dirty hack
+\newcommand{\FlowchartInitialX}{0}
+\newcommand{\FlowchartInitialY}{-2}
+\newcommand{\FlowchartColumnWidth}{2.8}
+\newcommand{\FlowchartYearLabelOffset}{1.4}
+\newcommand{\FlowchartRowHeight}{2}
 
-\newcommand{\fallsemester}[1]{
+% \FallSemester{year number, 1 through 8}
+% declare the start of a Fall semester
+\newcommand{\FallSemester}[1]{
+  % compute X-coordinate
   \ifnum #1=1
-      \COPY{0}{\flowX}
+      % first ever call, initialize \flowX
+      \COPY{\FlowchartInitialX}{\flowX}
   \else
-      \ADD{\flowX}{2.8}{\flowX}
+      % increment \flowX
+      \ADD{\flowX}{\FlowchartColumnWidth}{\flowX}
   \fi
 
-  \COPY{-2}{\flowY}
+  % reset Y-coordinate
+  \COPY{\FlowchartInitialY}{\flowY}
 
-  \ADD{\flowX}{1.5}{\sol}
-  \flowchartlabel{\sol}{0}{Year #1}
+  % Year number label
+  \ADD{\flowX}{\FlowchartYearLabelOffset}{\sol}
+  \FlowchartLabel{\sol}{0}{Year #1}
 
-  \flowchartlabel{\flowX}{-1}{Fall}
-}
-               
-\newcommand{\springsemester}{
-  \ADD{\flowX}{2.8}{\flowX}
-  \COPY{-2}{\flowY}
-
-  \flowchartlabel{\flowX}{-1}{Spring}
+  % column header
+  \FlowchartLabel{\flowX}{-1}{Fall}
 }
 
-% \FlowchartBox{fill color}{Tikz identifier}{label text}{X-coord}{Y-coord}
-\newcommand{\FlowchartBox}[5]{
-  \node [flowstyle, draw, rectangle, fill=#1, minimum width=1.8, minimum height=1.8, align=left] at (#4, #5) (#2) {#3};
+% \SpringSemester
+% declare the start of a Spring semester
+\newcommand{\SpringSemester}{
+  \ADD{\flowX}{\FlowchartColumnWidth}{\flowX}
+  \COPY{\FlowchartInitialY}{\flowY}
+
+  \FlowchartLabel{\flowX}{-1}{Spring}
 }
 
-% \abstractflowchartcourse{fill color}{Tikz identifier}{label text}
-\newcommand{\abstractflowchartcourse}[3]{
+% \GenericFlowchartCourse{fill color}{Tikz identifier}{label text}
+% Add a generic course to the flowchart. Low-level helper for the
+% friendlier macros below.
+\newcommand{\GenericFlowchartCourse}[3]{
   \FlowchartBox{#1}{#2}{#3}{\flowX}{\flowY}
-  \SUBTRACT{\flowY}{2}{\flowY}
+  \SUBTRACT{\flowY}{\FlowchartRowHeight}{\flowY}
 }
 
+% fill colors for course boxes
 \newcommand{\CpscColor}{red!30!white}
 \newcommand{\TrackColor}{red!10!white}
 \newcommand{\MathColor}{blue!30!white}
 \newcommand{\ScienceColor}{green!30!white}
 \newcommand{\GeColor}{yellow!30!white}
 
-\newcommand{\cpsccourse}[1]{ \abstractflowchartcourse{\CpscColor}{#1}{CPSC #1} }
-\newcommand{\trackcourse}[2]{ \abstractflowchartcourse{\TrackColor}{#1}{#2} }
-\newcommand{\freeelective}[1]{ \trackcourse{#1}{Free \\ Elective} }
-\newcommand{\mathcourse}[1]{ \abstractflowchartcourse{\MathColor}{#1}{MATH #1} }
-\newcommand{\scienceelective}[2]{ \abstractflowchartcourse{\ScienceColor}{#1}{#2} }
-\newcommand{\gecourse}[3]{ \abstractflowchartcourse{\GeColor}{#1}{GE #2 \\ #3} }
+% Add a course to the flowchart.
+\newcommand{\CpscCourse}[1]{ \GenericFlowchartCourse{\CpscColor}{#1}{CPSC #1} }
+\newcommand{\TrackCourse}[2]{ \GenericFlowchartCourse{\TrackColor}{#1}{#2} }
+\newcommand{\FreeElectiveCourse}[1]{ \TrackCourse{#1}{Free \\ Elective} }
+\newcommand{\MathCourse}[1]{ \GenericFlowchartCourse{\MathColor}{#1}{MATH #1} }
+\newcommand{\ScienceElectiveCourse}[2]{ \GenericFlowchartCourse{\ScienceColor}{#1}{#2} }
+\newcommand{\GeCourse}[3]{ \GenericFlowchartCourse{\GeColor}{#1}{GE #2 \\ #3} }
 
-\newcommand{\FlowchartLegend}{
-  \node [flowstyle] at (0, -12) {Color Legend:};
-  \FlowchartBox{\CpscColor}{CpscLegend}{Core Course}{3}{-12}
-  \FlowchartBox{\TrackColor}{TrackLegend}{Track Course}{6}{-12}
-  \FlowchartBox{\MathColor}{MathLegend}{Math Req.}{9}{-12}
-  \FlowchartBox{\ScienceColor}{ScienceLegend}{Science/Math Elect.}{12}{-12}
-  \FlowchartBox{\GeColor}{GeLegend}{GE}{15}{-12}
-}
+% \FirstSevenSemesters{223 course}{science course 1}{science course 2}{science course 3}{last course in semester 5}{last course in semester 6}{last course in semester 7}
+%
+% Declare the courses for the first seven semesters, which are very
+% similar across all tracks. "223 course" should be a textual course
+% number, e.g. 223P or 223C. The other course argumetns should be one
+% of the \CpscCourse, \TrackCourse, etc. macros above.
+\newcommand{\FirstSevenSemesters}[7]{
 
-% first 7 semesters, pass 223, science/math electives, and last class in semesters 5-7 as arguments
-% \flowchartphaseone{title}{223 course}{science 1}{science 2}{science 3}{last class semester 5}{last class semester 6}{last class semester 7}
-\newcommand{\flowchartphaseone}[8]{
-  \flowchartlabel{6}{2}{\Large{#1}};
-  
-  \fallsemester{1}
-  \cpsccourse{120}
-  \mathcourse{150A}
-  \mathcourse{270A}
-  \gecourse{A1}{A.1}{HCOM 102}
-  \gecourse{A2}{A.2}{ENGL 101}
+  \FallSemester{1}
+  \CpscCourse{120}
+  \MathCourse{150A}
+  \MathCourse{270A}
+  \GeCourse{A1}{A.1}{HCOM 102}
+  \GeCourse{A2}{A.2}{ENGL 101}
  
-  \springsemester
-  \cpsccourse{121} %\straightprereq{121}{120}
-  \mathcourse{150B} %\straightprereq{150B}{150A}
-  \mathcourse{270B} %\straightprereq{270B}{270A}
-  \gecourse{C1}{C.1}{ART 101}
-  \gecourse{C2}{C.2}{LING 106}
+  \SpringSemester
+  \CpscCourse{121} %\StraightPrereq{121}{120}
+  \MathCourse{150B} %\StraightPrereq{150B}{150A}
+  \MathCourse{270B} %\StraightPrereq{270B}{270A}
+  \GeCourse{C1}{C.1}{ART 101}
+  \GeCourse{C2}{C.2}{LING 106}
   
-  \fallsemester{2}
-  \cpsccourse{131} %\straightprereq{131}{121}
-  \mathcourse{338} %\straightprereq{338}{150B}
-  \gecourse{D3}{D.3}{AMST 201}
-  \gecourse{D4}{D.4}{POSC 100}
-  \gecourse{C4}{C.4}{HIST 110A}
+  \FallSemester{2}
+  \CpscCourse{131} %\StraightPrereq{131}{121}
+  \MathCourse{338} %\StraightPrereq{338}{150B}
+  \GeCourse{D3}{D.3}{AMST 201}
+  \GeCourse{D4}{D.4}{POSC 100}
+  \GeCourse{C4}{C.4}{HIST 110A}
   
-  \springsemester
-  \cpsccourse{254} %\straightprereq{254}{131}
+  \SpringSemester
+  \CpscCourse{254} %\StraightPrereq{254}{131}
+  #2
+  \CpscCourse{#1}  % 223
+  \CpscCourse{240}
+  \CpscCourse{311} %\BentPrereq{311}{A2}{bend right}
+  
+  \FallSemester{3}
+  \CpscCourse{301} %\StraightPrereq{301}{254} \BentPrereq{301}{131}{bend left=15}
   #3
-  \cpsccourse{#2}
-  \cpsccourse{240}
-  \cpsccourse{311} %\bentprereq{311}{A2}{bend right}
+  \CpscCourse{332}
+  \GeCourse{C3}{C.3}{MUS 303} %\BentPrereq{C3}{C1}{bend right=25}
+  #5
   
-  \fallsemester{3}
-  \cpsccourse{301} %\straightprereq{301}{254} \bentprereq{301}{131}{bend left=15}
+  \SpringSemester
+  \CpscCourse{335} %\StraightPrereq{335}{301}
   #4
-  \cpsccourse{332}
-  \gecourse{C3}{C.3}{MUS 303} %\bentprereq{C3}{C1}{bend right=25}
+  \CpscCourse{351}
+  \CpscCourse{323}
   #6
   
-  \springsemester
-  \cpsccourse{335} %\straightprereq{335}{301}
-  #5
-  \cpsccourse{351}
-  \cpsccourse{323}
+  \FallSemester{4}
+  \CpscCourse{481} %\StraightPrereq{481}{335}
+  \GeCourse{D1}{D.1}{EGCE 401} %\BentPrereq{D1}{150A}{bend right=12.5}
+  \CpscCourse{471} %\StraightPrereq{471}{351}
+  \CpscCourse{440} %\BentPrereq{440}{240}{bend left=20}
   #7
-  
-  \fallsemester{4}
-  \cpsccourse{481} %\straightprereq{481}{335}
-  \gecourse{D1}{D.1}{EGCE 401} %\bentprereq{D1}{150A}{bend right=12.5}
-  \cpsccourse{471} %\straightprereq{471}{351}
-  \cpsccourse{440} %\bentprereq{440}{240}{bend left=20}
-  #8
 
-  \springsemester
 }
 
-% fill in last class in semesters 5-6 with the ones that are used for all tracks except MG
-% \flowchartphaseone{title}{223 course}{science 1}{science 2}{science 3}{last class semester 7}
-\newcommand{\flowchartphasetwo}[6]{
-  \flowchartphaseone{#1}{#2}{#3}{#4}{#5}{\cpsccourse{315}}{\cpsccourse{362}}{#6}
+% \FirstSevenSemestersCommonOrder{223 course}{science course 1}{science course 2}{science course 3}{last course in semester 7}
+%
+% All tracks except MG put 315 and 362 in semesters 5 and 6 respectively.
+\newcommand{\FirstSevenSemestersCommonOrder}[5]{
+  \FirstSevenSemesters{#1}{#2}{#3}{#4}{\CpscCourse{315}}{\CpscCourse{362}}{#5}
 }
 
-% fill in science electives with default choices, 223 still an argument
-% \flowchartphase2{title}{223 course}{last course in 7th semester}
-\newcommand{\flowchartphasethree}[3]{
-  \flowchartphasetwo{#1}{#2}{\scienceelective{270A}{MATH 250A}}{\scienceelective{225}{PHYS 225+L}}{\scienceelective{226}{PHYS 226+L}}{#3}
+% \FirstSevenSemestersCommonOrderAndScience{223 course}{last course in semester 7}
+%
+% All remaining tracks except SC use the same science courses.
+
+\newcommand{\DefaultFirstScienceElective} { \ScienceElectiveCourse{270A}{MATH 250A} }
+\newcommand{\DefaultSecondScienceElective}{ \ScienceElectiveCourse{225}{PHYS 225+L} }
+\newcommand{\DefaultThirdScienceElective} { \ScienceElectiveCourse{226}{PHYS 226+L} }
+
+\newcommand{\FirstSevenSemestersCommonOrderAndScience}[2]{
+  \FirstSevenSemestersCommonOrder{#1}{\DefaultFirstScienceElective}{\DefaultSecondScienceElective}{\DefaultThirdScienceElective}{#2}
 }
 
-\newcommand{\mgtrack}{
-  \begin{flowchart}
-    \flowchartphaseone{\mgtrackname}{223P}{\scienceelective{270A}{MATH 250A}}{\scienceelective{225}{PHYS 225+L}}{\scienceelective{226}{PHYS 226+L}}{\trackcourse{386}{CPSC 386}}{\trackcourse{484}{CPSC 484}}{\trackcourse{486}{CPSC 486}}
+% Now we're finally ready to declare all the flowcharts!
 
-    \trackcourse{489}{CPSC 489}
-    \cpsccourse{315}
-    \cpsccourse{362}
-    \freeelective{FE1}
+\newcommand{\MgFlowchart}{
+  \begin{flowchart}{\MgTrackName}
+    \FirstSevenSemesters{223P}{\DefaultFirstScienceElective}{\DefaultSecondScienceElective}{\DefaultThirdScienceElective}{\TrackCourse{386}{CPSC 386}}{\TrackCourse{484}{CPSC 484}}{\TrackCourse{486}{CPSC 486}}
 
+    \SpringSemester
+    \TrackCourse{489}{CPSC 489}
+    \CpscCourse{315}
+    \CpscCourse{362}
+    \FreeElectiveCourse{FE1}
 
-    \FlowchartLegend
   \end{flowchart}
 }
-\newcommand{\ietrack}{
-  \begin{flowchart}
-    \flowchartphasethree{\ietrackname}{223J}{\trackcourse{431}{CPSC 431}}
 
-    \trackcourse{473}{CPSC 473}
-    \trackcourse{476}{CPSC 476}
-    \freeelective{FE1}
-    \freeelective{FE2}
+\newcommand{\IeFlowchart}{
+  \begin{flowchart}{\IeTrackName}
+    \FirstSevenSemestersCommonOrderAndScience{223J}{\TrackCourse{431}{CPSC 431}}
+
+    \SpringSemester
+    \TrackCourse{473}{CPSC 473}
+    \TrackCourse{476}{CPSC 476}
+    \FreeElectiveCourse{FE1}
+    \FreeElectiveCourse{FE2}
     
-    \FlowchartLegend
   \end{flowchart}
 }
 
-\newcommand{\setrack}{
-  \begin{flowchart}
-    \flowchartphasethree{\setrackname}{223P}{\trackcourse{462}{CPSC 462}}
+\newcommand{\SeFlowchart}{
+  \begin{flowchart}{\SeTrackName}
+    \FirstSevenSemestersCommonOrderAndScience{223P}{\TrackCourse{462}{CPSC 462}}
 
-    \trackcourse{464}{CPSC 464}
-    \trackcourse{463}{CPSC 463/466}
-    \freeelective{FE1}
-    \freeelective{FE2}
+    \SpringSemester
+    \TrackCourse{464}{CPSC 464}
+    \TrackCourse{463}{CPSC 463/466}
+    \FreeElectiveCourse{FE1}
+    \FreeElectiveCourse{FE2}
     
-    \FlowchartLegend
   \end{flowchart}
 }
 
-\newcommand{\sctrack}{
-  \begin{flowchart}
-    \flowchartphasetwo{\sctrackname}{223P}{\scienceelective{270A}{MATH 250A}}{\scienceelective{250B}{MATH 250B}}{\scienceelective{226}{PHYS 225+L}}{\trackcourse{370}{MATH 370}}
+\newcommand{\ScFlowchart}{
+  \begin{flowchart}{\ScTrackName}
+    \FirstSevenSemestersCommonOrder{223P}{\ScienceElectiveCourse{270A}{MATH 250A}}{\ScienceElectiveCourse{250B}{MATH 250B}}{\ScienceElectiveCourse{226}{PHYS 225+L}}{\TrackCourse{370}{MATH 370}}
 
-    \trackcourse{340}{MATH 340}
-    \freeelective{FE1}
-    \freeelective{FE2}
-    \freeelective{FE3}    
+    \SpringSemester
+    \TrackCourse{340}{MATH 340}
+    \FreeElectiveCourse{FE1}
+    \FreeElectiveCourse{FE2}
+    \FreeElectiveCourse{FE3}
 
-    \FlowchartLegend
   \end{flowchart}
 }
 
-\newcommand{\ctbiotrack}{
-  \begin{flowchart}
-    \flowchartphasetwo{\ctbiotrackname}{223P}{\scienceelective{120A}{CHEM 120A}}{\scienceelective{125}{CHEM 125}}{\scienceelective{172}{BIOL 172}}{\trackcourse{273}{BIOL 273}}
+\newcommand{\CtBioFlowchart}{
+  \begin{flowchart}{\CtBioTrackName}
+    \FirstSevenSemestersCommonOrder{223P}{\ScienceElectiveCourse{120A}{CHEM 120A}}{\ScienceElectiveCourse{125}{CHEM 125}}{\ScienceElectiveCourse{172}{BIOL 172}}{\TrackCourse{273}{BIOL 273}}
 
-
-    \trackcourse{485}{CPSC 485}
-    \trackcourse{483}{CPSC 483}
-    \freeelective{FE1}
-    \freeelective{FE2}
+    \SpringSemester
+    \TrackCourse{485}{CPSC 485}
+    \TrackCourse{483}{CPSC 483}
+    \FreeElectiveCourse{FE1}
+    \FreeElectiveCourse{FE2}
     
-    \FlowchartLegend
   \end{flowchart}
 }
-\newcommand{\ctsecuritytrack}{
-  \begin{flowchart}
-    \flowchartphasethree{\ctsecuritytrackname}{223C}{\trackcourse{353}{CPSC 353}}
+\newcommand{\CtSecurityFlowchart}{
+  \begin{flowchart}{\CtSecurityTrackName}
+    \FirstSevenSemestersCommonOrderAndScience{223C}{\TrackCourse{353}{CPSC 353}}
 
-    \trackcourse{452}{CPSC 452}
-    \trackcourse{454}{CPSC 454}
-    \trackcourse{456}{CPSC 456}
-    \trackcourse{439}{CPSC 439}
+    \SpringSemester
+    \TrackCourse{452}{CPSC 452}
+    \TrackCourse{454}{CPSC 454}
+    \TrackCourse{456}{CPSC 456}
+    \TrackCourse{439}{CPSC 439}
     
-    \FlowchartLegend
   \end{flowchart}
 }
 
@@ -467,7 +532,7 @@ Fullerton, CA 92834-6870
 
 \section{Accreditation} \index{accreditation}\index{ABET}
 
-The Bachelor of Science in Computer Science degree at \campusname~is accredited by the Computer Accreditation Commission of ABET (\url{http://www.abet.org}).
+The Bachelor of Science in Computer Science degree at \CampusName~is accredited by the Computer Accreditation Commission of ABET (\url{http://www.abet.org}).
 
 \begin{center}
   \fbox{ \includegraphics{CAC-CMYK-W.pdf} }
@@ -488,7 +553,7 @@ The Department also offers Graduate programs, which are documented elsewhere:
 \item Accelerated Master of Science in Software Engineering (A.M.S.E.).
 \end{enumerate}
 
-CS courses are also components of Computer Engineering, Electrical Engineering, and Mathematics programs at \campusname.
+CS courses are also components of Computer Engineering, Electrical Engineering, and Mathematics programs at \CampusName.
 
 \section{Objectives and Outcomes}
 \index{Program Educational Objectives (PEOs)} \index{Program Outcomes}
@@ -561,7 +626,7 @@ Our accreditor, ABET\index{ABET}, requires at least 30 units of mathematics and 
 
 The following tree graph diagram illustrates the prerequisite and corequisite relationships between courses required for the major.
 
-\majortree
+\MajorTree
 
 \begin{tip} \index{unit limit}
   You are ordinarily limited to 16 units each term. In order to finish the B.S. program in 8 semesters, you will need to take five classes each semester. Almost all CPSC and GE courses are 3 units each; almost all mathematics and science courses are 4 units each. Plan on taking four 3-unit courses (CPSC and/or GE), and one 4-unit course (mathematics or science) each semester, for a total of 16 units, until you are nearing graduation.
@@ -583,7 +648,7 @@ Choose \emph{CPSC 223C - C Programming} if you plan on taking security-related c
 \end{tip}
 
 \begin{tip}
-Choose \emph{CPSC 223J - Java Programming} if you plan on taking web-related courses later on. Definitely take 223J if you plan on following the \ietrackname~track\ietrackindex.
+Choose \emph{CPSC 223J - Java Programming} if you plan on taking web-related courses later on. Definitely take 223J if you plan on following the \IeTrackName~track\IeTrackIndex.
 \end{tip}
 
 \begin{tip}
@@ -616,7 +681,7 @@ Choose a set of courses that support each other and your future studies. Plan ah
 PHYS 225, 225L, 226, 226L, and MATH 250A provide a strong foundation for later CS courses, meet all Science and Mathematics requirements, and fit within 12 units. Take this set of electives unless you are working toward a specific study plan focusing on biology, chemistry, geology, or mathematics.
 \end{tip}
 
-MATH 250A and MATH 250B may not be counted toward both the Scientific Computing Track \sctrackindex and Science and Mathematics Electives. Students who apply these courses toward Science and Mathematics Electives may substitute adviser-approved 400-level CPSC courses to meet the 15-unit requirement of the Scientific Computing Track.
+MATH 250A and MATH 250B may not be counted toward both the Scientific Computing Track \ScTrackIndex and Science and Mathematics Electives. Students who apply these courses toward Science and Mathematics Electives may substitute adviser-approved 400-level CPSC courses to meet the 15-unit requirement of the Scientific Computing Track.
 
 \begin{tip}
 If you are working toward the Scientfic Computing Track, complete this requirement with  MATH 250A, MATH 250B, PHYS 225, and PHYS 225L. This will give you substantial flexibility in choosing electives to finish the track, and help you complete prerequisite courses rapidly.
@@ -643,20 +708,20 @@ Computer Science is a very broad field and the technologies in each area change 
 
 You must select an elective track aimed at your specific career goals. There are five tracks to choose from. The requirements for each track are given in the Catalog.
 
-\subsection{\mgtrackname}
-\mgtrackindex
+\subsection{\MgTrackName}
+\MgTrackIndex
 Interactive entertainment and computer-animated visual effects are now part of our mainstream culture. Creating such sophisticated computer graphics in the video games and animations requires a delicate blending of art with science by teams of highly skilled professionals. Artists, animators, writers, designers, and software developers work long hours with cutting-edge technology and tools. This track gives you the necessary skills in multimedia/digital animation and simulation, human/computer interfaces, digital game development and production.
 
-\subsection{\ietrackname}
-\ietrackindex
+\subsection{\IeTrackName}
+\IeTrackIndex
 The Internet is an essential technology for most computer users. Although Internet technology provides many people with convenience and opportunity, it provides computer scientists with challenges since the Internet applications must be scalable, distributed, secure, and high performance. This track gives you the skills needed to develop enterprise-wide Internet applications using current technologies.
 
-\subsection{\setrackname}
-\setrackindex
+\subsection{\SeTrackName}
+\SeTrackIndex
 Software engineering is the discipline of developing and maintaining large software systems that behave reliably and efficiently. Recently it has evolved in response to the increased importance of software in safety-critical applications and to the growing impact of large and expensive software systems in a wide range of situations. This track will prepare students to have necessary skills on how to assess customer needs, and develop usable and high quality software that meets those needs, and manage large scale software development projects.
 
-\subsection{\sctrackname}
-\sctrackindex
+\subsection{\ScTrackName}
+\ScTrackIndex
 
 Scientific Computing is the field of study concerned with constructing mathematical models and numerical solutions, using computers to solve scientific and engineering problems that typically require massive amounts of computation.
 
@@ -718,7 +783,7 @@ You may be able to use an adviser-approved course not on this list as a Free Ele
 
 \newcommand{\gecourselist}{ \href{http://www.fullerton.edu/undergraduate/generaledu/ge_approvedcourses.asp}{\emph{How do I find which courses are approved for GE?}} }
 
-The Undergraduate Studies \& General Education website (\url{http://www.fullerton.edu/undergraduate/generaledu/}) describes University GE\index{general education} requirements in detail. The list of all GE-approved courses is on the \gecourselist page. \campusname~students are ordinarily required to take at least 51 units and 19 categories of GE courses. CS majors meet some of these requirements through their required courses, and some requirements are waived for CS majors.
+The Undergraduate Studies \& General Education website (\url{http://www.fullerton.edu/undergraduate/generaledu/}) describes University GE\index{general education} requirements in detail. The list of all GE-approved courses is on the \gecourselist page. \CampusName~students are ordinarily required to take at least 51 units and 19 categories of GE courses. CS majors meet some of these requirements through their required courses, and some requirements are waived for CS majors.
 
 \begin{center}
 \begin{tabular}{| p{3in} | p{3in} |} \hline
@@ -738,7 +803,7 @@ The Undergraduate Studies \& General Education website (\url{http://www.fullerto
 
 This leaves 27 units and 10 categories which must be satisfied by additional courses.
 
-In addition, \campusname~students are required to take at least 9 units of GE at the upper-division (300/400) level. 4 of these are satisfied by MATH 338, so at least 5 of your additional GE units must be upper-division. CS majors must use EGCE/CP/EE/ME 401 to satisfy GE area D.1, leaving 2 units which may be satisfied by choosing an upper-division course in area C.3.
+In addition, \CampusName~students are required to take at least 9 units of GE at the upper-division (300/400) level. 4 of these are satisfied by MATH 338, so at least 5 of your additional GE units must be upper-division. CS majors must use EGCE/CP/EE/ME 401 to satisfy GE area D.1, leaving 2 units which may be satisfied by choosing an upper-division course in area C.3.
 
 The following table lists the remaining GE categories, and an example course for each category.
 
@@ -810,11 +875,11 @@ The requirements for the CS minor are \href{http://catalog.fullerton.edu/preview
 
 You may have to take additional courses to meet the prerequisites for your CS courses.
 
-At least 6 units must be upper division (300/400 level) and completed at \campusname. At least 12 units, including the minimum 6 units of upper division course work, must be courses that are not being used to fulfill requirements for your major.
+At least 6 units must be upper division (300/400 level) and completed at \CampusName. At least 12 units, including the minimum 6 units of upper division course work, must be courses that are not being used to fulfill requirements for your major.
 
 \section{Minor Prerequisite Tree}
 
-\minortree
+\MinorTree
 
 \section{Suggested Minor Electives}
 
@@ -854,7 +919,7 @@ Transfer courses cannot be applied toward the major or accepted as prerequisites
 \section{Computer Science Placement Examination}
 \label{section:placement}
 \index{placement examination}
-Our courses CPSC 120 and CPSC 121 cover computer programming. If you are proficient in this material, but do not have academic credit, you may attempt to establish your proficiency and skip one or both courses by taking the Computer Science Placement Examination. If you have taken CPSC 120, 121, or 131 at \campusname, you are not eligible to take the Placement Examination. See the \href{http://catalog.fullerton.edu/preview_program.php?catoid=2&poid=537&returnto=137}{Department's section of the University Catalog} for more information.
+Our courses CPSC 120 and CPSC 121 cover computer programming. If you are proficient in this material, but do not have academic credit, you may attempt to establish your proficiency and skip one or both courses by taking the Computer Science Placement Examination. If you have taken CPSC 120, 121, or 131 at \CampusName, you are not eligible to take the Placement Examination. See the \href{http://catalog.fullerton.edu/preview_program.php?catoid=2&poid=537&returnto=137}{Department's section of the University Catalog} for more information.
 
 If you test out of one or both courses, you will be short on units in the Lower Division Core major requirement. You will need to earn substitute units by taking extra units of CPSC 223 and/or Free Electives (listed in section \ref{section:free_electives}).
 
@@ -867,7 +932,7 @@ If you took the Computer Science AP exam and scored well, you may be able to get
 
 Learning takes place in many settings, not just the classroom. When you complete your educational career and are entering the professional job market for the first time, extensive professional experience can be highly beneficial. For this reason, the University and the Computer Science Department maintain an active internship program as a service to all students interested in obtaining employment while still in school.
 
-Academic internships bear credit at \campusname. Students enroll in an internship course and complete course requirements. The number of units you receive depends on the number of hours you complete at your internship site.
+Academic internships bear credit at \CampusName. Students enroll in an internship course and complete course requirements. The number of units you receive depends on the number of hours you complete at your internship site.
 
 \begin{center}
 \begin{tabular}{|l|l|} \hline
@@ -955,7 +1020,7 @@ Be sure to follow the course requirements for your catalog year. Your catalog ye
 
 If you are subject to unusual circumstances that you feel are not accommodated appropriately by Department policies, you may request an exception by filing a formal petition with the Department. There are two kinds of petitions:
 \begin{enumerate}
-\item File a \emph{Prerequisite Waiver} form when you do not meet the formal prerequisites for a course, yet are indeed prepared to take the course. This may be appropriate if, for example, you have taken equivalent courses at another institution that has no articulation agreement with \campusname, so they do not register as equivalent in Titan Degree Audit.
+\item File a \emph{Prerequisite Waiver} form when you do not meet the formal prerequisites for a course, yet are indeed prepared to take the course. This may be appropriate if, for example, you have taken equivalent courses at another institution that has no articulation agreement with \CampusName, so they do not register as equivalent in Titan Degree Audit.
 \item File a \emph{Petition} form to request an exception to any Department policy other than course prerequisites.
 \end{enumerate}
 
@@ -969,25 +1034,25 @@ See the \href{http://catalog.fullerton.edu/content.php?catoid=2&navoid=115#Stude
 
 The following flowcharts are examples of semester-by-semester class plans for various trajectories through the B.S. program. These plans complete all major requirements in 8 semesters (4 years), satisfy all prerequisites along the way, and follow all tips in this Handbook. There are flowcharts for the following academic plans:
 \begin{enumerate}
-\item \mgtrackname
-\item \ietrackname
-\item \setrackname
-\item \sctrackname
-\item \ctbiotrackname
-\item \ctsecuritytrackname
+\item \MgTrackName
+\item \IeTrackName
+\item \SeTrackName
+\item \ScTrackName
+\item \CtBioTrackName
+\item \CtSecurityTrackName
 \end{enumerate}
 
-\clearpage \mgtrack \mgtrackindex
+\clearpage \MgFlowchart \MgTrackIndex
 
-\clearpage \ietrack \ietrackindex
+\clearpage \IeFlowchart \IeTrackIndex
 
-\clearpage \setrack \setrackindex
+\clearpage \SeFlowchart \SeTrackIndex
 
-\clearpage \sctrack \sctrackindex
+\clearpage \ScFlowchart \ScTrackIndex
 
-\clearpage \ctbiotrack \ctbiotrackindex
+\clearpage \CtBioFlowchart \CtBioTrackIndex
 
-\clearpage \ctsecuritytrack \ctsecuritytrackindex
+\clearpage \CtSecurityFlowchart \CtSecurityTrackIndex
 
 \chapter{Credits and Revision History}
 
@@ -1008,7 +1073,7 @@ This document has been maintained by Sandra Boulanger, David Falconer, and Kevin
 }{
   % no-op
 }
-\majortree
+\MajorTree
 \pagenumbering{gobble} % no number on the last page
 
 \end{document}
