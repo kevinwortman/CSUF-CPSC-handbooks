@@ -240,7 +240,9 @@
   \trackcourse{#1}{Free \\ Elective}
 }
 
-\newcommand{\flowcharttemplate}[3]{
+% first 7 semesters, pass 223 and science/math electives as arguments
+% \flowchartphaseone{title}{223 course}{science 1}{science 2}{science 3}{last course in 7th semester}
+\newcommand{\flowchartphaseone}[6]{
   \flowchartlabel{6}{2}{\Large{#1}};
   
   \fallsemester{1}
@@ -266,21 +268,21 @@
   
   \springsemester
   \cpsccourse{254} %\straightprereq{254}{131}
-  \scienceelective{250A}{MATH 250A} %\bentprereq{250A}{150B}{bend left}
+  #3
   \cpsccourse{#2}
   \cpsccourse{240}
   \cpsccourse{311} %\bentprereq{311}{A2}{bend right}
   
   \fallsemester{3}
   \cpsccourse{301} %\straightprereq{301}{254} \bentprereq{301}{131}{bend left=15}
-  \scienceelective{225}{PHYS 225+L}
+  #4
   \cpsccourse{332}
   \gecourse{C3}{C.3}{MUS 303} %\bentprereq{C3}{C1}{bend right=25}
   \cpsccourse{315} %\straightprereq{315}{311}
   
   \springsemester
   \cpsccourse{335} %\straightprereq{335}{301}
-  \scienceelective{226}{PHYS 226+L} %\straightprereq{226}{225}
+  #5
   \cpsccourse{351}
   \cpsccourse{323}
   \cpsccourse{362} %\bentprereq{362}{311}{bend right}
@@ -290,14 +292,21 @@
   \gecourse{D1}{D.1}{EGCE 401} %\bentprereq{D1}{150A}{bend right=12.5}
   \cpsccourse{471} %\straightprereq{471}{351}
   \cpsccourse{440} %\bentprereq{440}{240}{bend left=20}
-  #3
+  #6
+
+  \springsemester
+}
+
+% fill in science electives with default choices, 223 still an argument
+% \flowchartphase2{title}{223 course}{last course in 7th semester}
+\newcommand{\flowchartphasetwo}[3]{
+  \flowchartphaseone{#1}{#2}{\scienceelective{270A}{MATH 250A}}{\scienceelective{225}{PHYS 225+L}}{\scienceelective{226}{PHYS 226+L}}{#3}
 }
 
 \newcommand{\ietrack}{
   \begin{flowchart}
-    \flowcharttemplate{Internet and Enterprise Computing Technologies (IE)}{223J}{\trackcourse{431}{CPSC 431}}
+    \flowchartphasetwo{Internet and Enterprise Computing Technologies (IE)}{223J}{\trackcourse{431}{CPSC 431}}
 
-    \springsemester
     \trackcourse{473}{CPSC 473}
     \trackcourse{476}{CPSC 476}
     \freeelective{FE1}
@@ -308,9 +317,8 @@
 
 \newcommand{\setrack}{
   \begin{flowchart}
-    \flowcharttemplate{Software Engineering (SE)}{223P}{\trackcourse{462}{CPSC 462}}
+    \flowchartphasetwo{Software Engineering (SE)}{223P}{\trackcourse{462}{CPSC 462}}
 
-    \springsemester
     \trackcourse{464}{CPSC 464}
     \trackcourse{463}{CPSC 463/466}
     \freeelective{FE1}
@@ -319,15 +327,26 @@
   \end{flowchart}
 }
 
+\newcommand{\sctrack}{
+  \begin{flowchart}
+    \flowchartphaseone{Scientific Computing (SC)}{223P}{\scienceelective{270A}{MATH 250A}}{\scienceelective{250B}{MATH 250B}}{\scienceelective{226}{PHYS 225+L}}{\trackcourse{370}{MATH 370}}
+
+    \trackcourse{340}{MATH 340}
+    \freeelective{FE1}
+    \freeelective{FE2}
+    \freeelective{FE3}    
+
+  \end{flowchart}
+}
+
 \newcommand{\ctsecuritytrack}{
   \begin{flowchart}
-    \flowcharttemplate{Custom Track (CT) --- Cybersecurity Focus}{223C}{\trackcourse{353}{CPSC 353}}
+    \flowchartphasetwo{Custom Track (CT) --- Cybersecurity Focus}{223C}{\trackcourse{353}{CPSC 353}}
 
-    \springsemester
     \trackcourse{452}{CPSC 452}
     \trackcourse{454}{CPSC 454}
     \trackcourse{439}{CPSC 439}
-    \trackcourse{463}{CPSC 463}
+    \freeelective{FE1}
     
   \end{flowchart}
 }
@@ -893,6 +912,7 @@ The following flowcharts are examples of semester-by-semester course plans for v
 
 \clearpage \ietrack
 \clearpage \setrack
+\clearpage \sctrack
 \clearpage \ctsecuritytrack
 
 \chapter{Credits and Revision History}
