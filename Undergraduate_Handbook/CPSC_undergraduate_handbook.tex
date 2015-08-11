@@ -34,9 +34,32 @@
 \newcommand{\campusname}{CSUF}
 
 % tip sidebar
-\newenvironment{tip}
-               {\tcolorbox \begin{tabular}{m{.5in} m{5in}} \Large{TIP} & }
-               {\end{tabular} \endtcolorbox}
+\newenvironment{tip}{
+  \tcolorbox \begin{tabular}{m{.5in} m{5in}} \Large{TIP} &
+}{
+  \end{tabular} \endtcolorbox
+}
+
+% names of tracks
+\newcommand{\mgtrackname}{Multimedia and Digital Games (MG)}
+\newcommand{\ietrackname}{Internet and Enterprise Computing (IE)}
+\newcommand{\setrackname}{Software Engineering (SE)}
+\newcommand{\sctrackname}{Scientific Computing (SC)}
+\newcommand{\cttrackname}{Customized (CT)}
+\newcommand{\ctbiotrackname}{\cttrackname --- Bioinformatics focus}
+\newcommand{\ctsecuritytrackname}{\cttrackname --- Cybersecurity focus}
+
+% track entries
+\newcommand{\maketrackindex}[2]{
+  \newcommand{#1}{\index{track!#2}}
+}
+\maketrackindex{\mgtrackindex}{\mgtrackname}
+\maketrackindex{\ietrackindex}{\ietrackname}
+\maketrackindex{\setrackindex}{\setrackname}
+\maketrackindex{\sctrackindex}{\sctrackname}
+\maketrackindex{\cttrackindex}{\cttrackname}
+\maketrackindex{\ctbiotrackindex}{\ctbiotrackname}
+\maketrackindex{\ctsecuritytrackindex}{\ctsecuritytrackname}
 
 % prerequisite tree figure
 
@@ -311,7 +334,7 @@
 
 \newcommand{\mgtrack}{
   \begin{flowchart}
-    \flowchartphaseone{Multimedia and Digital Games (MG)}{223P}{\scienceelective{270A}{MATH 250A}}{\scienceelective{225}{PHYS 225+L}}{\scienceelective{226}{PHYS 226+L}}{\trackcourse{386}{CPSC 386}}{\trackcourse{484}{CPSC 484}}{\trackcourse{486}{CPSC 486}}
+    \flowchartphaseone{\mgtrackname}{223P}{\scienceelective{270A}{MATH 250A}}{\scienceelective{225}{PHYS 225+L}}{\scienceelective{226}{PHYS 226+L}}{\trackcourse{386}{CPSC 386}}{\trackcourse{484}{CPSC 484}}{\trackcourse{486}{CPSC 486}}
 
     \trackcourse{489}{CPSC 489}
     \cpsccourse{315}
@@ -322,7 +345,7 @@
 }
 \newcommand{\ietrack}{
   \begin{flowchart}
-    \flowchartphasethree{Internet and Enterprise Computing Technologies (IE)}{223J}{\trackcourse{431}{CPSC 431}}
+    \flowchartphasethree{\ietrackname}{223J}{\trackcourse{431}{CPSC 431}}
 
     \trackcourse{473}{CPSC 473}
     \trackcourse{476}{CPSC 476}
@@ -334,7 +357,7 @@
 
 \newcommand{\setrack}{
   \begin{flowchart}
-    \flowchartphasethree{Software Engineering (SE)}{223P}{\trackcourse{462}{CPSC 462}}
+    \flowchartphasethree{\setrackname}{223P}{\trackcourse{462}{CPSC 462}}
 
     \trackcourse{464}{CPSC 464}
     \trackcourse{463}{CPSC 463/466}
@@ -346,7 +369,7 @@
 
 \newcommand{\sctrack}{
   \begin{flowchart}
-    \flowchartphasetwo{Scientific Computing (SC)}{223P}{\scienceelective{270A}{MATH 250A}}{\scienceelective{250B}{MATH 250B}}{\scienceelective{226}{PHYS 225+L}}{\trackcourse{370}{MATH 370}}
+    \flowchartphasetwo{\sctrackname}{223P}{\scienceelective{270A}{MATH 250A}}{\scienceelective{250B}{MATH 250B}}{\scienceelective{226}{PHYS 225+L}}{\trackcourse{370}{MATH 370}}
 
     \trackcourse{340}{MATH 340}
     \freeelective{FE1}
@@ -358,7 +381,7 @@
 
 \newcommand{\ctbiotrack}{
   \begin{flowchart}
-    \flowchartphasetwo{Custom Track (CT) --- Bioinformatics Focus}{223P}{\scienceelective{120A}{CHEM 120A}}{\scienceelective{125}{CHEM 125}}{\scienceelective{172}{BIOL 172}}{\trackcourse{273}{BIOL 273}}
+    \flowchartphasetwo{\ctbiotrackname}{223P}{\scienceelective{120A}{CHEM 120A}}{\scienceelective{125}{CHEM 125}}{\scienceelective{172}{BIOL 172}}{\trackcourse{273}{BIOL 273}}
 
 
     \trackcourse{485}{CPSC 485}
@@ -370,7 +393,7 @@
 }
 \newcommand{\ctsecuritytrack}{
   \begin{flowchart}
-    \flowchartphasethree{Custom Track (CT) --- Cybersecurity Focus}{223C}{\trackcourse{353}{CPSC 353}}
+    \flowchartphasethree{\ctsecuritytrackname}{223C}{\trackcourse{353}{CPSC 353}}
 
     \trackcourse{452}{CPSC 452}
     \trackcourse{454}{CPSC 454}
@@ -545,7 +568,7 @@ Choose \emph{CPSC 223C - C Programming} if you plan on taking security-related c
 \end{tip}
 
 \begin{tip}
-Choose \emph{CPSC 223J - Java Programming} if you plan on taking web-related courses later on. Definitely take 223J if you plan on following the \emph{Internet and Enterprise Computing Technologies (IE)} track\index{Internet and Enterprise Computing (IE) track}.
+Choose \emph{CPSC 223J - Java Programming} if you plan on taking web-related courses later on. Definitely take 223J if you plan on following the \ietrackname track\ietrackindex.
 \end{tip}
 
 \begin{tip}
@@ -578,7 +601,7 @@ Choose a set of courses that support each other and your future studies. Plan ah
 PHYS 225, 225L, 226, 226L, and MATH 250A provide a strong foundation for later CS courses, meet all Science and Mathematics requirements, and fit within 12 units. Take this set of electives unless you are working toward a specific study plan focusing on biology, chemistry, geology, or mathematics.
 \end{tip}
 
-MATH 250A and MATH 250B may not be counted toward both the Scientific Computing Track \index{Scientific Computing (SC) track} and Science and Mathematics Electives. Students who apply these courses toward Science and Mathematics Electives may substitute adviser-approved 400-level CPSC courses to meet the 15-unit requirement of the Scientific Computing Track.
+MATH 250A and MATH 250B may not be counted toward both the Scientific Computing Track \sctrackindex and Science and Mathematics Electives. Students who apply these courses toward Science and Mathematics Electives may substitute adviser-approved 400-level CPSC courses to meet the 15-unit requirement of the Scientific Computing Track.
 
 \begin{tip}
 If you are working toward the Scientfic Computing Track, complete this requirement with  MATH 250A, MATH 250B, PHYS 225, and PHYS 225L. This will give you substantial flexibility in choosing electives to finish the track, and help you complete prerequisite courses rapidly.
@@ -605,20 +628,20 @@ Computer Science is a very broad field and the technologies in each area change 
 
 You must select an elective track aimed at your specific career goals. There are five tracks to choose from. The requirements for each track are given in the Catalog.
 
-\subsection{Multimedia and Digital Games (MG)}
-\index{Multimedia and Digital Games (MG) track}
+\subsection{\mgtrackname}
+\mgtrackindex
 Interactive entertainment and computer-animated visual effects are now part of our mainstream culture. Creating such sophisticated computer graphics in the video games and animations requires a delicate blending of art with science by teams of highly skilled professionals. Artists, animators, writers, designers, and software developers work long hours with cutting-edge technology and tools. This track gives you the necessary skills in multimedia/digital animation and simulation, human/computer interfaces, digital game development and production.
 
-\subsection{Internet and Enterprise Computing (IE)}
-\index{Internet and Enterprise Computing (IE) track}
+\subsection{\ietrackname}
+\ietrackindex
 The Internet is an essential technology for most computer users. Although Internet technology provides many people with convenience and opportunity, it provides computer scientists with challenges since the Internet applications must be scalable, distributed, secure, and high performance. This track gives you the skills needed to develop enterprise-wide Internet applications using current technologies.
 
-\subsection{Software Engineering (SE)}
-\index{Software Engineering (SE) track}
+\subsection{\setrackname}
+\setrackindex
 Software engineering is the discipline of developing and maintaining large software systems that behave reliably and efficiently. Recently it has evolved in response to the increased importance of software in safety-critical applications and to the growing impact of large and expensive software systems in a wide range of situations. This track will prepare students to have necessary skills on how to assess customer needs, and develop usable and high quality software that meets those needs, and manage large scale software development projects.
 
-\subsection{Scientific Computing (SC)}
-\index{Scientific Computing (SC) track}
+\subsection{\sctrackname}
+\sctrackindex
 
 Scientific Computing is the field of study concerned with constructing mathematical models and numerical solutions, using computers to solve scientific and engineering problems that typically require massive amounts of computation.
 
@@ -626,8 +649,8 @@ This track gives you skills needed to construct mathematical models, adapt numer
 
 Completing the requirements for the Scientific Computing track also satisfies the requirements for a Mathematics minor\index{mathematics minor}.
 
-\subsection{Customized (CT)}
-\index{Customized (CT) track}
+\subsection{\cttrackname}
+\cttrackindex
 
 This track provides you with great flexibility to build your knowledge and skills in special areas of interest. You can use it to meet the requirements of specific industry sectors or companies, or your personal academic goals.
 
@@ -931,20 +954,25 @@ See the \href{http://catalog.fullerton.edu/content.php?catoid=2&navoid=115#Stude
 
 The following flowcharts are examples of semester-by-semester course plans for various trajectories through the BS program. These plans complete all major requirements in 8 semesters (4 years), satisfy all prerequisites along the way, and obey all tips in this Handbook. There are flowcharts for the following academic plans:
 \begin{enumerate}
-\item \emph{Multimedia and Digital Games (MG)} track
-\item \emph{Internet and Enterprise Computing (IE)} track
-\item \emph{Software Engineering (SE)} track
-\item \emph{Scientific Computing (SC)} track
-\item \emph{Customized} track --- Bioinformatics Focus
-\item \emph{Customized} track --- Cybersecurity Focus
+\item \mgtrackname
+\item \ietrackname
+\item \setrackname
+\item \sctrackname
+\item \ctbiotrackname
+\item \ctsecuritytrackname
 \end{enumerate}
 
-\clearpage \mgtrack
-\clearpage \ietrack
-\clearpage \setrack
-\clearpage \sctrack
-\clearpage \ctbiotrack
-\clearpage \ctsecuritytrack
+\clearpage \mgtrack \mgtrackindex
+
+\clearpage \ietrack \ietrackindex
+
+\clearpage \setrack \setrackindex
+
+\clearpage \sctrack \sctrackindex
+
+\clearpage \ctbiotrack \ctbiotrackindex
+
+\clearpage \ctsecuritytrack \ctsecuritytrackindex
 
 \chapter{Credits and Revision History}
 
