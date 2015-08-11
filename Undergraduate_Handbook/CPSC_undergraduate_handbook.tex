@@ -234,33 +234,37 @@
   \flowchartlabel{\flowX}{-1}{Spring}
 }
 
+% \FlowchartBox{fill color}{Tikz identifier}{label text}{X-coord}{Y-coord}
+\newcommand{\FlowchartBox}[5]{
+  \node [flowstyle, draw, rectangle, fill=#1, minimum width=1.8, minimum height=1.8, align=left] at (#4, #5) (#2) {#3};
+}
+
+% \abstractflowchartcourse{fill color}{Tikz identifier}{label text}
 \newcommand{\abstractflowchartcourse}[3]{
-  \node [flowstyle, draw, rectangle, fill=#1, minimum width=1.8, minimum height=1.8, align=left] at (\flowX, \flowY) (#2) {#3};
+  \FlowchartBox{#1}{#2}{#3}{\flowX}{\flowY}
   \SUBTRACT{\flowY}{2}{\flowY}
 }
 
-\newcommand{\cpsccourse}[1]{
-  \abstractflowchartcourse{red!30!white}{#1}{CPSC #1}
-}
+\newcommand{\CpscColor}{red!30!white}
+\newcommand{\TrackColor}{red!10!white}
+\newcommand{\MathColor}{blue!30!white}
+\newcommand{\ScienceColor}{green!30!white}
+\newcommand{\GeColor}{yellow!30!white}
 
-\newcommand{\mathcourse}[1]{
-  \abstractflowchartcourse{blue!30!white}{#1}{MATH #1}
-}
+\newcommand{\cpsccourse}[1]{ \abstractflowchartcourse{\CpscColor}{#1}{CPSC #1} }
+\newcommand{\trackcourse}[2]{ \abstractflowchartcourse{\TrackColor}{#1}{#2} }
+\newcommand{\freeelective}[1]{ \trackcourse{#1}{Free \\ Elective} }
+\newcommand{\mathcourse}[1]{ \abstractflowchartcourse{\MathColor}{#1}{MATH #1} }
+\newcommand{\scienceelective}[2]{ \abstractflowchartcourse{\ScienceColor}{#1}{#2} }
+\newcommand{\gecourse}[3]{ \abstractflowchartcourse{\GeColor}{#1}{GE #2 \\ #3} }
 
-\newcommand{\scienceelective}[2]{
-  \abstractflowchartcourse{green!30!white}{#1}{#2}
-}
-
-\newcommand{\gecourse}[3]{
-  \abstractflowchartcourse{yellow!30!white}{#1}{GE #2 \\ #3}
-}
-
-\newcommand{\trackcourse}[2]{
-  \abstractflowchartcourse{red!10!white}{#1}{#2}
-}
-
-\newcommand{\freeelective}[1]{
-  \trackcourse{#1}{Free \\ Elective}
+\newcommand{\FlowchartLegend}{
+  \node [flowstyle] at (0, -12) {Color Legend:};
+  \FlowchartBox{\CpscColor}{CpscLegend}{Core Course}{3}{-12}
+  \FlowchartBox{\TrackColor}{TrackLegend}{Track Course}{6}{-12}
+  \FlowchartBox{\MathColor}{MathLegend}{Math Req.}{9}{-12}
+  \FlowchartBox{\ScienceColor}{ScienceLegend}{Science/Math Elect.}{12}{-12}
+  \FlowchartBox{\GeColor}{GeLegend}{GE}{15}{-12}
 }
 
 % first 7 semesters, pass 223, science/math electives, and last class in semesters 5-7 as arguments
@@ -340,7 +344,9 @@
     \cpsccourse{315}
     \cpsccourse{362}
     \freeelective{FE1}
-    
+
+
+    \FlowchartLegend
   \end{flowchart}
 }
 \newcommand{\ietrack}{
@@ -352,6 +358,7 @@
     \freeelective{FE1}
     \freeelective{FE2}
     
+    \FlowchartLegend
   \end{flowchart}
 }
 
@@ -364,6 +371,7 @@
     \freeelective{FE1}
     \freeelective{FE2}
     
+    \FlowchartLegend
   \end{flowchart}
 }
 
@@ -376,6 +384,7 @@
     \freeelective{FE2}
     \freeelective{FE3}    
 
+    \FlowchartLegend
   \end{flowchart}
 }
 
@@ -389,6 +398,7 @@
     \freeelective{FE1}
     \freeelective{FE2}
     
+    \FlowchartLegend
   \end{flowchart}
 }
 \newcommand{\ctsecuritytrack}{
@@ -400,6 +410,7 @@
     \trackcourse{456}{CPSC 456}
     \trackcourse{439}{CPSC 439}
     
+    \FlowchartLegend
   \end{flowchart}
 }
 
