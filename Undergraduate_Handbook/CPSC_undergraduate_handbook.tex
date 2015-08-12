@@ -164,7 +164,7 @@
       % 351, 471 under 254
       \TreeCourse{CPSC}{351}{12}{-4}
       \TreeCourse{CPSC}{471}{12}{-6}
-      \StraightPrereq{351}{254} \Coreq{351}{301}
+      \StraightPrereq{351}{254}
       \StraightPrereq{471}{351}
 
       % 362, ENGL 101 aligned with 311
@@ -189,10 +189,11 @@
       \StraightPrereq{B}{A}
       \node at (12, -12.25) {A is a prerequisite for B};
 
-      \TreeCourse{}{C}{9}{-14}
-      \TreeCourse{}{D}{11}{-14}
-      \Coreq{C}{D}
-      \node at (14, -14) {C and D are corequisites};
+      % there aren't any corequisites left in the diagram
+      %\TreeCourse{}{C}{9}{-14}
+      %\TreeCourse{}{D}{11}{-14}
+      %\Coreq{C}{D}
+      %\node at (14, -14) {C and D are corequisites};
       
     \end{tikzpicture}
   \end{center}
