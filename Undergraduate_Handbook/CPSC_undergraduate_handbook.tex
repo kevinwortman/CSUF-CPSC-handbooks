@@ -17,6 +17,8 @@
   times,          % font choice
 }
 
+\newcommand{\IsDraft}{1} % assign nonzero for DRAFT watermark, zero for no watermark
+
 \usetikzlibrary{patterns} % for time-critical course hatching
     
 % Don't say "Chapter 3", just "3"
@@ -29,8 +31,12 @@
 \setlength{\parskip}{12pt}
 
 % draft watermark
-\SetWatermarkText{DRAFT}
-\SetWatermarkColor[gray]{0.9}
+\ifnum \IsDraft=0
+  \SetWatermarkText{}
+\else
+  \SetWatermarkText{DRAFT}
+  \SetWatermarkColor[gray]{0.9}
+\fi
 
 % tip sidebar
 \newenvironment{tip}{
