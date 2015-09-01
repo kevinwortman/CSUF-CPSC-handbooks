@@ -70,7 +70,7 @@
   \let \footnote \thanks
 \huge{Office Hours \Courseterm\ \Courseyear}\\
 %\large{\Courseterm\ \Courseyear}\\
-\huge{Michael Shafae}
+\huge{\Instructor}
   \end{center}%
   %\par
   %\vskip 1.5em
