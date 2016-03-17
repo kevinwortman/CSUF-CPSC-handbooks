@@ -19,6 +19,8 @@
 
 \newcommand{\IsDraft}{0} % assign nonzero for DRAFT watermark, zero for no watermark
 
+\newcommand{\UsePDFCourseGraph}{1} % assign nonzero for PDF course graph, zero for original LaTeX course graph 
+
 \usetikzlibrary{patterns} % for time-critical course hatching
     
 % Don't say "Chapter 3", just "3"
@@ -123,86 +125,92 @@
 % draw the entire major prerequisite tree. This is a macro since it
 % appears twice.
 \newcommand{\MajorTree}{
-  % there should be exactly 23 courses in the diagram
-  \begin{center}
-    \begin{tikzpicture}
+  \ifnum \UsePDFCourseGraph=0
+    % there should be exactly 23 courses in the diagram
+    \begin{center}
+      \begin{tikzpicture}
 
-      % MATH 150A-150B-338 column
-      \TimeCriticalTreeCourse{MATH}{150A}{0}{0}
-      \TimeCriticalTreeCourse{MATH}{150B}{0}{-1}
-      \TimeCriticalTreeCourse{MATH}{338}{0}{-4}
-      \StraightPrereq{150B}{150A}
-      \StraightPrereq{338}{150B}
+        % MATH 150A-150B-338 column
+        \TimeCriticalTreeCourse{MATH}{150A}{0}{0}
+        \TimeCriticalTreeCourse{MATH}{150B}{0}{-1}
+        \TimeCriticalTreeCourse{MATH}{338}{0}{-4}
+        \StraightPrereq{150B}{150A}
+        \StraightPrereq{338}{150B}
 
-      % MATH 270A-270B column
-      \TimeCriticalTreeCourse{MATH}{270A}{3}{0}
-      \TimeCriticalTreeCourse{MATH}{270B}{3}{-1}
-      \StraightPrereq{270B}{270A}
+        % MATH 270A-270B column
+        \TimeCriticalTreeCourse{MATH}{270A}{3}{0}
+        \TimeCriticalTreeCourse{MATH}{270B}{3}{-1}
+        \StraightPrereq{270B}{270A}
 
-      % CPSC 120-121-131-254-EPP-323 column
-      \IntroTree{9}
-      \TimeCriticalTreeCourse{CPSC}{254}{9}{-3}
-      \TimeCriticalTreeCourse{CPSC}{301}{9}{-4}
-      \TreeCourse{CPSC}{323}{9}{-5}
-      \StraightPrereq{254}{131}
-      \StraightPrereq{301}{254}
-      \StraightPrereq{323}{301}
+        % CPSC 120-121-131-254-EPP-323 column
+        \IntroTree{9}
+        \TimeCriticalTreeCourse{CPSC}{254}{9}{-3}
+        \TimeCriticalTreeCourse{CPSC}{301}{9}{-4}
+        \TreeCourse{CPSC}{323}{9}{-5}
+        \StraightPrereq{254}{131}
+        \StraightPrereq{301}{254}
+        \StraightPrereq{323}{301}
 
-      % 335, 481 under 270
-      \TimeCriticalTreeCourse{CPSC}{335}{3}{-5}
-      \TimeCriticalTreeCourse{CPSC}{481}{3}{-6}
-      \StraightPrereq{335}{270B} \StraightPrereq{335}{338} \StraightPrereq{335}{301}
-      \StraightPrereq{481}{335}
-      
-      % 131 follow-ons
-      \TreeCourse{CPSC}{240}{5}{-3}
-      \TreeCourse{CPSC}{223}{7}{-3}
-      \TreeCourse{CPSC}{332}{11}{-3}
-      \TreeCourse{CPSC}{311}{14}{-3}
-      \StraightPrereq{240}{131} \BentPrereq{240}{270A}{bend left=30}
-      \StraightPrereq{223}{131}
-      \StraightPrereq{332}{131}
+        % 335, 481 under 270
+        \TimeCriticalTreeCourse{CPSC}{335}{3}{-5}
+        \TimeCriticalTreeCourse{CPSC}{481}{3}{-6}
+        \StraightPrereq{335}{270B} \StraightPrereq{335}{338} \StraightPrereq{335}{301}
+        \StraightPrereq{481}{335}
+  
+        % 131 follow-ons
+        \TreeCourse{CPSC}{240}{5}{-3}
+        \TreeCourse{CPSC}{223}{7}{-3}
+        \TreeCourse{CPSC}{332}{11}{-3}
+        \TreeCourse{CPSC}{311}{14}{-3}
+        \StraightPrereq{240}{131} \BentPrereq{240}{270A}{bend left=30}
+        \StraightPrereq{223}{131}
+        \StraightPrereq{332}{131}
 
-      % 440 below 240
-      \TreeCourse{CPSC}{440}{5}{-6}
-      \StraightPrereq{440}{240}
-      
-      % 351, 471 under 254
-      \TreeCourse{CPSC}{351}{12}{-4}
-      \TreeCourse{CPSC}{471}{12}{-6}
-      \StraightPrereq{351}{254}
-      \StraightPrereq{471}{351}
+        % 440 below 240
+        \TreeCourse{CPSC}{440}{5}{-6}
+        \StraightPrereq{440}{240}
+  
+        % 351, 471 under 254
+        \TreeCourse{CPSC}{351}{12}{-4}
+        \TreeCourse{CPSC}{471}{12}{-6}
+        \StraightPrereq{351}{254}
+        \StraightPrereq{471}{351}
 
-      % 362, ENGL 101 aligned with 311
-      \TreeCourse{ENGL}{101}{14}{0}
-      \TreeCourse{CPSC}{362}{14}{-5}
-      \StraightPrereq{311}{101} \BentPrereq{311}{131}{bend left=15}
-      \StraightPrereq{362}{301} \StraightPrereq{362}{311}
+        % 362, ENGL 101 aligned with 311
+        \TreeCourse{ENGL}{101}{14}{0}
+        \TreeCourse{CPSC}{362}{14}{-5}
+        \StraightPrereq{311}{101} \BentPrereq{311}{131}{bend left=15}
+        \StraightPrereq{362}{301} \StraightPrereq{362}{311}
 
-      % 315
-      \TreeCourse{CPSC}{315}{15}{-4}
-      \StraightPrereq{315}{311}
+        % 315
+        \TreeCourse{CPSC}{315}{15}{-4}
+        \StraightPrereq{315}{311}
 
-      % legend
-      \node at (12.5, -9) {\underline{Legend}};
-      
-      \TimeCriticalTreeCourse{time-critical}{course}{10}{-10}
-      
-      \TreeCourse{}{other course}{10}{-11}
-      
-      \TreeCourse{}{A}{9}{-12}
-      \TreeCourse{}{B}{11}{-13}
-      \StraightPrereq{B}{A}
-      \node at (12, -12.25) {A is a prerequisite for B};
+        % legend
+        \node at (12.5, -9) {\underline{Legend}};
+  
+        \TimeCriticalTreeCourse{time-critical}{course}{10}{-10}
+  
+        \TreeCourse{}{other course}{10}{-11}
+  
+        \TreeCourse{}{A}{9}{-12}
+        \TreeCourse{}{B}{11}{-13}
+        \StraightPrereq{B}{A}
+        \node at (12, -12.25) {A is a prerequisite for B};
 
-      % there aren't any corequisites left in the diagram
-      %\TreeCourse{}{C}{9}{-14}
-      %\TreeCourse{}{D}{11}{-14}
-      %\Coreq{C}{D}
-      %\node at (14, -14) {C and D are corequisites};
-      
-    \end{tikzpicture}
-  \end{center}
+        % there aren't any corequisites left in the diagram
+        %\TreeCourse{}{C}{9}{-14}
+        %\TreeCourse{}{D}{11}{-14}
+        %\Coreq{C}{D}
+        %\node at (14, -14) {C and D are corequisites};
+  
+      \end{tikzpicture}
+    \end{center}
+  \else
+    \begin{center}
+      \includegraphics[width=.9\linewidth]{images/Fullerton_ugrad_handbook}
+    \end{center}
+  \fi
 }
 
 % \MinorTree
