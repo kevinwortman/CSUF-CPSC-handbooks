@@ -14,6 +14,7 @@
   hyperref,       % hotlinks
   ifthen,         % if statements
   makeidx,        % index
+  multirow,       % table elements may span columns/rows
   tcolorbox,      % background colors in Tip sidebars
   tikz,           % used to draw prerequisite trees and flowcharts
   times,          % font choice
@@ -871,15 +872,13 @@ Grade requirements for courses are summarized below.
 \begin{center}
 \begin{tabular}{|l|l|} \hline
   \textbf{Course Type} & \textbf{Minimum Grade} \\ \hline
-  Lower-Division Core & C- \\ \hline
-  Mathematics Requirements & C- ($\star$ see below) \\ \hline
-  MATH 150A, to satisfy the GE B.4 requirement & C \\ \hline
-  Science and Mathematics Electives & C- ($\star$ see below) \\ \hline
-  Upper-Division Core (except CPSC 311) & C- \\ \hline
+  Lower-Division Core & \multirow{2}{*}{C-} \\
+  Upper-Division Core, except CPSC 311 & \\ \hline
   CPSC 311 (upper-division writing) & C \\ \hline
-  Elective Track & C- ($\star$ see below) \\ \hline
-  GE categories A.1 and A.2 & C- \\ \hline
-  Other GE categories & C- \\ \hline
+  Mathematics Requirements & \multirow{3}{*}{C- ($\star$ see below)} \\
+  Science and Mathematics Electives & \\
+  Elective Track & \\ \hline
+  GE courses, including MATH 150A, MATH 338, EGCE/CP/EE/ME 401 & C- \\ \hline
 \end{tabular}
 \end{center}
 
