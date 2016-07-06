@@ -335,7 +335,7 @@
 % Add a course to the flowchart.
 \newcommand{\CpscCourse}[1]{ \GenericFlowchartCourse{\CpscColor}{#1}{CPSC #1} }
 \newcommand{\TrackCourse}[2]{ \GenericFlowchartCourse{\TrackColor}{#1}{#2} }
-\newcommand{\FreeElectiveCourse}[1]{ \TrackCourse{#1}{Free \\ Elective} }
+\newcommand{\UDCSElectiveCourse}[1]{ \TrackCourse{#1}{UD CS \\ Elective} }
 \newcommand{\MathCourse}[1]{ \GenericFlowchartCourse{\MathColor}{#1}{MATH #1} }
 \newcommand{\ScienceElectiveCourse}[2]{ \GenericFlowchartCourse{\ScienceColor}{#1}{#2} }
 \newcommand{\GeCourse}[3]{ \GenericFlowchartCourse{\GeColor}{#1}{GE #2 \\ #3} }
@@ -428,7 +428,7 @@
     \TrackCourse{489}{CPSC 489}
     \CpscCourse{315}
     \CpscCourse{362}
-    \FreeElectiveCourse{FE1}
+    \UDCSElectiveCourse{FE1}
 
   \end{flowchart}
 }
@@ -440,8 +440,8 @@
     \SpringSemester
     \TrackCourse{473}{CPSC 473}
     \TrackCourse{476}{CPSC 476}
-    \FreeElectiveCourse{FE1}
-    \FreeElectiveCourse{FE2}
+    \UDCSElectiveCourse{FE1}
+    \UDCSElectiveCourse{FE2}
     
   \end{flowchart}
 }
@@ -453,8 +453,8 @@
     \SpringSemester
     \TrackCourse{464}{CPSC 464}
     \TrackCourse{463}{CPSC 463/466}
-    \FreeElectiveCourse{FE1}
-    \FreeElectiveCourse{FE2}
+    \UDCSElectiveCourse{FE1}
+    \UDCSElectiveCourse{FE2}
     
   \end{flowchart}
 }
@@ -465,9 +465,9 @@
 
     \SpringSemester
     \TrackCourse{340}{MATH 340}
-    \FreeElectiveCourse{FE1}
-    \FreeElectiveCourse{FE2}
-    \FreeElectiveCourse{FE3}
+    \UDCSElectiveCourse{FE1}
+    \UDCSElectiveCourse{FE2}
+    \UDCSElectiveCourse{FE3}
 
   \end{flowchart}
 }
@@ -478,9 +478,9 @@
 
     \SpringSemester
     \TrackCourse{483}{CPSC 483}
-    \FreeElectiveCourse{FE1}
-    \FreeElectiveCourse{FE2}
-    \FreeElectiveCourse{FE3}
+    \UDCSElectiveCourse{FE1}
+    \UDCSElectiveCourse{FE2}
+    \UDCSElectiveCourse{FE3}
     
   \end{flowchart}
 }
@@ -757,13 +757,14 @@ This track provides you with great flexibility to build your knowledge and skill
 
 The Custom track is intended to accomodate student career goals that are not served by any of the four other, more focused, tracks. For example, a student may wish to focus on an emerging area such as cybersecurity, robotics, or data science. If you intend to complete the Custom track, work with your adviser to make a plan for a set of courses that form a coherent course of study aligned with your goals.
 
-\section{Free Electives}
-\label{section:free_electives}
-\index{free elective}
+\section{Upper Division CS Electives}
+\label{section:upper_division_cs_electives}
+\index{upper division CS electives}
+\index{electives}
 
-Your Elective Track will require you to take some number of Free Elective courses. You may need to take additional Free Electives if you are short on units due to the Placement Examination, transfer, or other circumstances.
+Your Elective Track will require you to take some number of Upper Division CS Electives. You may need to take additional electives if you are short on units due to the Placement Examination, transfer, or other circumstances.
 
-A course may be used as a Free Elective if it is a 3-unit, upper-division, CPSC course that is not an Upper Division Core requirement. Therefore, the following courses may count as Free Electives:
+A course may be used as an Upper Division CS Elective if it is a 3-unit, upper-division, CPSC course that is not an Upper Division Core requirement. Therefore, the following courses may count as Upper Division CS Electives:
 \begin{itemize}
 \item CPSC 303 - Multimedia Concepts (3)
 \item CPSC 322L - Introduction to Computer-Aided Design (3)
@@ -796,7 +797,7 @@ A course may be used as a Free Elective if it is a 3-unit, upper-division, CPSC 
 \item CPSC 499 - Independent Study (3)
 \end{itemize}
 
-You may be able to use an adviser-approved course not on this list as a Free Elective. Such a course must be at least 3 units and directly related to your academic goals. If this interests you, discuss it with a major adviser. You may need to file a petition;\index{petition} see Section \ref{section:petitions}.
+You may be able to use an adviser-approved course not on this list as an Upper Division CS Elective. Such a course must be at least 3 units and directly related to your academic goals. If this interests you, discuss it with a major adviser. You may need to file a petition;\index{petition} see Section \ref{section:petitions}.
 
 \section{General Education (GE)}
 
@@ -959,8 +960,8 @@ The date, time, and location of Placement Examinations are given in the Departme
 
 If you test out of one or both courses, you will be short on units in the Lower
 Division Core major requirement. You will need to earn substitute units by
-taking extra units of CPSC 223 and/or Free Electives (listed in Section
-\ref{section:free_electives}).
+taking extra units of CPSC 223 and/or Upper Division CS Electives (listed in Section
+\ref{section:upper_division_cs_electives}).
 
 
 \section{Advanced Placement (AP)}
@@ -1019,7 +1020,7 @@ documents with them to the advising session.
 
 \section{Independent Study}
 
-You may take CPSC 499 Independent Study as a Free Elective\index{free elective}. This course allows you to pursue topics of special interest beyond those of a regular course.
+You may take CPSC 499 Independent Study as an Upper Division CS Elective. This course allows you to pursue topics of special interest beyond those of a regular course.
 
 You must submit an Application For Independent Study to the department office, which will supply the form. The application must include a study plan and objectives, and must be approved by a supervising full-time faculty member and by the department chair.
 
