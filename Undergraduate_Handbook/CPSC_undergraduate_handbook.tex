@@ -57,25 +57,23 @@
 \newcommand{\CampusName}{CSUF}
 
 % names of tracks
-\newcommand{\MgTrackName}{Multimedia and Digital Games (MG)}
+\newcommand{\CtTrackName}{Custom (CT)}
+\newcommand{\CyTrackName}{Cybersecurity (CY)}
 \newcommand{\IeTrackName}{Internet and Enterprise Computing (IE)}
-\newcommand{\SeTrackName}{Software Engineering (SE)}
+\newcommand{\MgTrackName}{Multimedia and Digital Games (MG)}
 \newcommand{\ScTrackName}{Scientific Computing (SC)}
-\newcommand{\cttrackname}{Custom (CT)}
-\newcommand{\CtBioTrackName}{\cttrackname~--- Bioinformatics focus}
-\newcommand{\CtSecurityTrackName}{\cttrackname~--- Cybersecurity focus}
+\newcommand{\SeTrackName}{Software Engineering (SE)}
 
 % track index entries
 \newcommand{\MakeTrackIndexCommand}[2]{
   \newcommand{#1}{\index{track!#2}}
 }
-\MakeTrackIndexCommand{\MgTrackIndex}{\MgTrackName}
+\MakeTrackIndexCommand{\CtTrackIndex}{\CtTrackName}
+\MakeTrackIndexCommand{\CyTrackIndex}{\CyTrackName}
 \MakeTrackIndexCommand{\IeTrackIndex}{\IeTrackName}
-\MakeTrackIndexCommand{\SeTrackIndex}{\SeTrackName}
+\MakeTrackIndexCommand{\MgTrackIndex}{\MgTrackName}
 \MakeTrackIndexCommand{\ScTrackIndex}{\ScTrackName}
-\MakeTrackIndexCommand{\cttrackindex}{\cttrackname}
-\MakeTrackIndexCommand{\CtBioTrackIndex}{\CtBioTrackName}
-\MakeTrackIndexCommand{\CtSecurityTrackIndex}{\CtSecurityTrackName}
+\MakeTrackIndexCommand{\SeTrackIndex}{\SeTrackName}
 
 % prerequisite tree figure
 
@@ -239,55 +237,42 @@
 
 % end of prerequisite tree code
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % flowchart code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % rotated 90 degrees clockwise, for landscape mode
 \tikzstyle{FlowchartStyle}=[rotate=-90]
 
-% \FlowchartLabel{X-coord}{Y-coord}{text}
-% draw a label
-\newcommand{\FlowchartLabel}[3]{
-  \node [FlowchartStyle, align=left] at (#1, #2) {#3};
-}
+% fill colors for course boxes
+\newcommand{\CoreColor}{red!30!white}
+\newcommand{\MathRequirementColor}{blue!30!white}
+\newcommand{\ScienceMathElectiveColor}{green!30!white}
+\newcommand{\TrackColor}{red!10!white}
+\newcommand{\GeColor}{yellow!30!white}
 
-% \FlowchartBox{fill color}{tikz identifier}{label text}{X-coord}{Y-coord}
-% draw a flowchart box with an edge and fill color
-\newcommand{\FlowchartBox}[5]{
-  \node [FlowchartStyle, draw, rectangle, fill=#1, minimum width=1.8, minimum height=1.8, align=left] at (#4, #5) (#2) {#3};
-}
-
-% \begin{flowchart}[title text]
-%    (declare semesters and courses with macros below)
-% \end{flowchart}
-% class flowchart environment
-\newenvironment{flowchart}[1]{
-  % environment start
-  \begin{tikzpicture}[FlowchartStyle]
-
-  % title
-  \FlowchartLabel{6}{2}{{\LARGE #1}}
-}{
-  % environment end
-
-  % legend
-  \FlowchartLabel{0}{-12}{Color Legend:}
-  \FlowchartBox{\CpscColor}{CpscLegend}{Core Course}{3}{-12}
-  \FlowchartBox{\TrackColor}{TrackLegend}{Track Course}{6}{-12}
-  \FlowchartBox{\MathColor}{MathLegend}{Math Req.}{9}{-12}
-  \FlowchartBox{\ScienceColor}{ScienceLegend}{Science/Math Elect.}{12}{-12}
-  \FlowchartBox{\GeColor}{GeLegend}{GE}{15}{-12}
-
-  \end{tikzpicture}
-}
-
-% these parameters are kind of a quick and dirty hack
+% these coordinate parameters are kind of a quick and dirty hack
 \newcommand{\FlowchartInitialX}{0}
 \newcommand{\FlowchartInitialY}{-2}
 \newcommand{\FlowchartColumnWidth}{2.8}
 \newcommand{\FlowchartYearLabelOffset}{1.4}
 \newcommand{\FlowchartRowHeight}{2}
+\newcommand{\FlowchartTitleX}{0}
+\newcommand{\FlowchartTitleY}{1.5}
 
-% \FallSemester{year number, 1 through 8}
+% \FlowchartLabel{X-coord}{Y-coord}{text}
+% draw a text label
+\newcommand{\FlowchartLabel}[3]{
+  \node [FlowchartStyle, align=left] at (#1, #2) {#3};
+}
+
+% \FlowchartBox{fill color}{label text}{X-coord}{Y-coord}
+% draw a flowchart box with an edge and fill color
+\newcommand{\FlowchartBox}[4]{
+  \node [FlowchartStyle, draw, rectangle, fill=#1, minimum width=1.8, minimum height=1.8, align=left] at (#3, #4) {#2};
+}
+
+% \FallSemester{year number, 1 through 4}
 % declare the start of a Fall semester
 \newcommand{\FallSemester}[1]{
   % compute X-coordinate
@@ -319,184 +304,96 @@
   \FlowchartLabel{\flowX}{-1}{Spring}
 }
 
-% \GenericFlowchartCourse{fill color}{Tikz identifier}{label text}
+% \GenericFlowchartCourse{fill color}{label text}
 % Add a generic course to the flowchart. Low-level helper for the
 % friendlier macros below.
-\newcommand{\GenericFlowchartCourse}[3]{
-  \FlowchartBox{#1}{#2}{#3}{\flowX}{\flowY}
+\newcommand{\GenericFlowchartCourse}[2]{
+  \FlowchartBox{#1}{#2}{\flowX}{\flowY}
   \SUBTRACT{\flowY}{\FlowchartRowHeight}{\flowY}
 }
 
-% fill colors for course boxes
-\newcommand{\CpscColor}{red!30!white}
-\newcommand{\TrackColor}{red!10!white}
-\newcommand{\MathColor}{blue!30!white}
-\newcommand{\ScienceColor}{green!30!white}
-\newcommand{\GeColor}{yellow!30!white}
+% Add a course of a specific type and color.
+\newcommand{\CoreCourse}[1]{ \GenericFlowchartCourse{\CoreColor}{#1} }
+\newcommand{\MathRequirementCourse}[1]{ \GenericFlowchartCourse{\MathRequirementColor}{#1} }
+\newcommand{\ScienceMathElectiveCourse}[1]{ \GenericFlowchartCourse{\ScienceMathElectiveColor}{#1} }
+\newcommand{\TrackCourse}[1]{ \GenericFlowchartCourse{\TrackColor}{#1} }
 
-% Add a course to the flowchart.
-\newcommand{\CpscCourse}[1]{ \GenericFlowchartCourse{\CpscColor}{#1}{CPSC #1} }
-\newcommand{\TrackCourse}[2]{ \GenericFlowchartCourse{\TrackColor}{#1}{#2} }
-\newcommand{\UDCSElectiveCourse}[1]{ \TrackCourse{#1}{UD CS \\ Elective} }
-\newcommand{\MathCourse}[1]{ \GenericFlowchartCourse{\MathColor}{#1}{MATH #1} }
-\newcommand{\ScienceElectiveCourse}[2]{ \GenericFlowchartCourse{\ScienceColor}{#1}{#2} }
-\newcommand{\GeCourse}[3]{ \GenericFlowchartCourse{\GeColor}{#1}{GE #2 \\ #3} }
+\newcommand{\GeCourse}[2]{ \GenericFlowchartCourse{\GeColor}{GE #1 \\ #2} }
 
-% \FirstSevenSemesters{223 course}{science course 1}{science course 2}{science course 3}{last course in semester 5}{last course in semester 6}{last course in semester 7}
-%
-% Declare the courses for the first seven semesters, which are very
-% similar across all tracks. "223 course" should be a textual course
-% number, e.g. 223P or 223C. The other course argumetns should be one
-% of the \CpscCourse, \TrackCourse, etc. macros above.
-\newcommand{\FirstSevenSemesters}[7]{
-
-  \FallSemester{1}
-  \CpscCourse{120}
-  \MathCourse{150A}
-  \MathCourse{270A}
-  \GeCourse{A1}{A.1}{HCOM 102}
-  \GeCourse{A2}{A.2}{ENGL 101}
- 
-  \SpringSemester
-  \CpscCourse{121} %\StraightPrereq{121}{120}
-  \MathCourse{150B} %\StraightPrereq{150B}{150A}
-  \MathCourse{270B} %\StraightPrereq{270B}{270A}
-  \GeCourse{C1}{C.1}{ART 101}
-  \GeCourse{C2}{C.2}{LING 106}
-  
-  \FallSemester{2}
-  \CpscCourse{131} %\StraightPrereq{131}{121}
-  \MathCourse{338} %\StraightPrereq{338}{150B}
-  \GeCourse{D3}{D.3}{AMST 201}
-  \GeCourse{D4}{D.4}{POSC 100}
-  \GeCourse{C4}{C.4}{HIST 110A}
-  
-  \SpringSemester
-  \CpscCourse{254} %\StraightPrereq{254}{131}
-  #2
-  \CpscCourse{#1}  % 223
-  \CpscCourse{240}
-  \CpscCourse{311} %\BentPrereq{311}{A2}{bend right}
-  
-  \FallSemester{3}
-  \CpscCourse{301} %\StraightPrereq{301}{254} \BentPrereq{301}{131}{bend left=15}
-  #3
-  \CpscCourse{332}
-  \GeCourse{C3}{C.3}{MUS 303} %\BentPrereq{C3}{C1}{bend right=25}
-  #5
-  
-  \SpringSemester
-  \CpscCourse{335} %\StraightPrereq{335}{301}
-  #4
-  \CpscCourse{351}
-  \CpscCourse{323}
-  #6
-  
-  \FallSemester{4}
-  \CpscCourse{481} %\StraightPrereq{481}{335}
-  \GeCourse{D1}{D.1}{EGCE 401} %\BentPrereq{D1}{150A}{bend right=12.5}
-  \CpscCourse{471} %\StraightPrereq{471}{351}
-  \CpscCourse{440} %\BentPrereq{440}{240}{bend left=20}
-  #7
-
-}
-
-% \FirstSevenSemestersCommonOrder{223 course}{science course 1}{science course 2}{science course 3}{last course in semester 7}
-%
-% All tracks except MG put 315 and 362 in semesters 5 and 6 respectively.
-\newcommand{\FirstSevenSemestersCommonOrder}[5]{
-  \FirstSevenSemesters{#1}{#2}{#3}{#4}{\CpscCourse{315}}{\CpscCourse{362}}{#5}
-}
-
-% \FirstSevenSemestersCommonOrderAndScience{223 course}{last course in semester 7}
-%
-% All remaining tracks except SC use the same science courses.
-
-\newcommand{\DefaultFirstScienceElective} { \ScienceElectiveCourse{270A}{MATH 250A} }
-\newcommand{\DefaultSecondScienceElective}{ \ScienceElectiveCourse{225}{PHYS 225+L} }
-\newcommand{\DefaultThirdScienceElective} { \ScienceElectiveCourse{226}{PHYS 226+L} }
-
-\newcommand{\FirstSevenSemestersCommonOrderAndScience}[2]{
-  \FirstSevenSemestersCommonOrder{#1}{\DefaultFirstScienceElective}{\DefaultSecondScienceElective}{\DefaultThirdScienceElective}{#2}
-}
-
-% Now we're finally ready to declare all the flowcharts!
-
-\newcommand{\MgFlowchart}{
-  \begin{flowchart}{\MgTrackName}
-    \FirstSevenSemesters{223P}{\DefaultFirstScienceElective}{\DefaultSecondScienceElective}{\DefaultThirdScienceElective}{\TrackCourse{386}{CPSC 386}}{\TrackCourse{484}{CPSC 484}}{\TrackCourse{486}{CPSC 486}}
-
-    \SpringSemester
-    \TrackCourse{489}{CPSC 489}
-    \CpscCourse{315}
-    \CpscCourse{362}
-    \UDCSElectiveCourse{FE1}
-
-  \end{flowchart}
-}
-
-\newcommand{\IeFlowchart}{
-  \begin{flowchart}{\IeTrackName}
-    \FirstSevenSemestersCommonOrderAndScience{223J}{\TrackCourse{431}{CPSC 431}}
-
-    \SpringSemester
-    \TrackCourse{473}{CPSC 473}
-    \TrackCourse{476}{CPSC 476}
-    \UDCSElectiveCourse{FE1}
-    \UDCSElectiveCourse{FE2}
+% \HarmonizedFlowchart{name}{223 course name}{track1}{track2}...{track5}
+\newcommand{\HarmonizedFlowchart}[7]{
+  \clearpage
+  \begin{tikzpicture}[FlowchartStyle]
     
-  \end{flowchart}
-}
+    % title
+    \node [FlowchartStyle, align=left, anchor=west, minimum width=2in] at (\FlowchartTitleX, \FlowchartTitleY) { {\LARGE #1} };
 
-\newcommand{\SeFlowchart}{
-  \begin{flowchart}{\SeTrackName}
-    \FirstSevenSemestersCommonOrderAndScience{223P}{\TrackCourse{462}{CPSC 462}}
-
-    \SpringSemester
-    \TrackCourse{464}{CPSC 464}
-    \TrackCourse{463}{CPSC 463/466}
-    \UDCSElectiveCourse{FE1}
-    \UDCSElectiveCourse{FE2}
+    % lower division
     
-  \end{flowchart}
-}
-
-\newcommand{\ScFlowchart}{
-  \begin{flowchart}{\ScTrackName}
-    \FirstSevenSemestersCommonOrder{223P}{\ScienceElectiveCourse{270A}{MATH 250A}}{\ScienceElectiveCourse{250B}{MATH 250B}}{\ScienceElectiveCourse{226}{PHYS 225+L}}{\TrackCourse{370}{MATH 370}}
-
-    \SpringSemester
-    \TrackCourse{340}{MATH 340}
-    \UDCSElectiveCourse{FE1}
-    \UDCSElectiveCourse{FE2}
-    \UDCSElectiveCourse{FE3}
-
-  \end{flowchart}
-}
-
-\newcommand{\CtBioFlowchart}{
-  \begin{flowchart}{\CtBioTrackName}
-    \FirstSevenSemestersCommonOrder{223P}{\ScienceElectiveCourse{120A}{CHEM 120A}}{\ScienceElectiveCourse{125}{CHEM 125}}{\ScienceElectiveCourse{172}{BIOL 172}}{\TrackCourse{485}{CPSC 485}}
-
-    \SpringSemester
-    \TrackCourse{483}{CPSC 483}
-    \UDCSElectiveCourse{FE1}
-    \UDCSElectiveCourse{FE2}
-    \UDCSElectiveCourse{FE3}
+    \FallSemester{1}
+    \CoreCourse{CPSC 120}
+    \MathRequirementCourse{CPSC 270A}
+    \MathRequirementCourse{CPSC 150A}
+    \GeCourse{A.1}{HCOM 102}
+    \GeCourse{A.2}{ENGL 101}
     
-  \end{flowchart}
-}
-\newcommand{\CtSecurityFlowchart}{
-  \begin{flowchart}{\CtSecurityTrackName}
-    \FirstSevenSemestersCommonOrderAndScience{223C}{\TrackCourse{353}{CPSC 353}}
+    \SpringSemester
+    \CoreCourse{CPSC 121}
+    \MathRequirementCourse{MATH 270B}
+    \MathRequirementCourse{MATH 150B}
+    \GeCourse{C.1}{ART 101}
+    \GeCourse{C.2}{PHIL 100}
+    
+    \FallSemester{2}
+    \CoreCourse{CPSC 131}
+    \ScienceMathElectiveCourse{PHYS 225+L}
+    \GeCourse{C.4}{HIST 110A}
+    \GeCourse{D.3}{HIST 170A}
+    \GeCourse{D.4}{POSC 100}
+    
+    \SpringSemester
+    \CoreCourse{#2} % 223
+    \ScienceMathElectiveCourse{PHYS 226+L}
+    \CoreCourse{CPSC 240}
+    \CoreCourse{CPSC 254}
+    \CoreCourse{CPSC 332}
+
+    % upper division
+    \FallSemester{3}
+    \CoreCourse{CPSC 351}
+    \CoreCourse{CPSC 311}
+    \MathRequirementCourse{MATH 338}
+    \TrackCourse{#3} % track1
 
     \SpringSemester
-    \TrackCourse{452}{CPSC 452}
-    \TrackCourse{454}{CPSC 454}
-    \TrackCourse{456}{CPSC 456}
-    \TrackCourse{439}{CPSC 439}
+    \CoreCourse{CPSC 335}
+    \CoreCourse{CPSC 471}
+    \CoreCourse{CPSC 362}
+    \ScienceMathElectiveCourse{MATH 250A}
+    \TrackCourse{#4} % track2
+
+    \FallSemester{4}
+    \CoreCourse{CPSC 323}
+    \CoreCourse{CPSC 481}
+    \GeCourse{D.1}{EGxx 401}
+    \GeCourse{C.3 \& Z}{MUS 303}
+    \TrackCourse{#5} % track3
+
+    \SpringSemester
+    \CoreCourse{CPSC 315}
+    \CoreCourse{CPSC 440}
+    \TrackCourse{#6} % track4
+    \TrackCourse{#7} % track5
     
-  \end{flowchart}
+    % legend at the bottom
+    \FlowchartLabel{0}{-12}{Color Legend:}
+    \FlowchartBox{\CoreColor}{Core Course}{3}{-12}
+    \FlowchartBox{\MathRequirementColor}{Math Req.}{6}{-12}
+    \FlowchartBox{\ScienceMathElectiveColor}{Science/Math Elect.}{9}{-12}
+    \FlowchartBox{\TrackColor}{Track Course}{12}{-12}
+    \FlowchartBox{\GeColor}{Gen. Ed.}{15}{-12}
+    
+  \end{tikzpicture}
 }
 
 % end of flowchart code
@@ -756,8 +653,8 @@ This track gives you skills needed to construct mathematical models, adapt numer
 
 In order to finish the major Mathematics Requirement and Scientific Computing requirements, you must pass MATH 150A, 150B, 250A, 250B, 338, 340, and 370. These courses together satisfy the requirements for a Mathematics Minor\index{mathematics minor}. See the catalog for more information on the Mathematics Minor (\url{http://bit.ly/28UKl3J}).
 
-\subsection{\cttrackname}
-\cttrackindex
+\subsection{\CtTrackName}
+\CtTrackIndex
 
 This track provides you with great flexibility to build your knowledge and skills in special areas of interest. You can use it to meet the requirements of specific industry sectors or companies, or your personal academic goals.
 
@@ -1098,25 +995,19 @@ See the Student Rights section of the Catalog (\url{http://bit.ly/28RvnaE}) for 
 
 The following flowcharts are examples of semester-by-semester class plans for various trajectories through the B.S. program. These plans complete all major requirements in 8 semesters (4 years), satisfy all prerequisites along the way, and follow all tips in this Handbook. There are flowcharts for the following academic plans:
 \begin{enumerate}
-\item \MgTrackName
+\item \CyTrackName
 \item \IeTrackName
+\item \MgTrackName
 \item \SeTrackName
-\item \ScTrackName
-\item \CtBioTrackName
-\item \CtSecurityTrackName
 \end{enumerate}
 
-\clearpage \MgFlowchart \MgTrackIndex
+\HarmonizedFlowchart{\CyTrackName}{CPSC 223C}{CPSC 452}{CPSC 353}{CPSC 454}{CPSC 456}{CPSC 463}
 
-\clearpage \IeFlowchart \IeTrackIndex
+\HarmonizedFlowchart{\IeTrackName}{CPSC 223J}{CPSC 386}{CPSC 353}{CPSC 473}{CPSC 431}{CPSC 476}
 
-\clearpage \SeFlowchart \SeTrackIndex
+\HarmonizedFlowchart{\MgTrackName}{CPSC 223P}{CPSC 386}{CPSC 484}{CPSC 486}{CPSC 489}{CPSC 411}
 
-\clearpage \ScFlowchart \ScTrackIndex
-
-\clearpage \CtBioFlowchart \CtBioTrackIndex
-
-\clearpage \CtSecurityFlowchart \CtSecurityTrackIndex
+\HarmonizedFlowchart{\SeTrackName}{CPSC 223P}{CPSC 462}{CPSC 464}{CPSC 411}{CPSC 463}{CPSC 353}
 
 \chapter{Credits and Revision History}
 
