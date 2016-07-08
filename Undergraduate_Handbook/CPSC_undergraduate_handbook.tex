@@ -75,6 +75,17 @@
 \MakeTrackIndexCommand{\ScTrackIndex}{\ScTrackName}
 \MakeTrackIndexCommand{\SeTrackIndex}{\SeTrackName}
 
+% \shrunkurl{name}
+%
+% Produces a visible and clickable link to the shrunk URL with the
+% given name.
+%
+% Example:
+%   \shrunkurl{cs}
+% Expands to a clickable link that displays as
+%   csuf-cpsc.appspot.com/cs
+\newcommand{\shrunkurl}[1]{\url{https://csuf-cpsc.appspot.com/#1}}
+
 % prerequisite tree figure
 
 % \GenericTreeCourse{tikz style}{tikz identifier}{X-coord}{Y-coord}{CPSC/MATH/ENGL}{course number}
@@ -437,7 +448,7 @@ Whenever you have a question about the Department---its policies, its curriculum
 
 \index{contact information}
 \begin{tabular}{r p{6in}} % right column in p mode so postal address can have newlines
-  Web: & \url{http://fullerton.edu/ecs/cs/} \\ \index{website}
+  Web: & \url{http://fullerton.edu/ecs/cs/} or \shrunkurl{cs} \\ \index{website}
   E-mail: & \href{mailto:csoffice@ecs.fullerton.edu}{\url{csoffice@ecs.fullerton.edu}} \\ \index{e-mail}
   In person: & Room CS-522 \\ \index{department office}
   Telephone: & (657) 278-3700 \\ \index{phone number} \index{telephone number}
@@ -474,11 +485,11 @@ CS courses are also components of Computer Engineering, Electrical Engineering, 
 
 \section{Objectives and Outcomes}
 \index{Program Educational Objectives (PEOs)} \index{Program Outcomes}
-The Program Educational Objectives and Program Outcomes for the B.S. CS are documented in the University Catalog at \url{http://bit.ly/28T46FO}.
+The Program Educational Objectives and Program Outcomes for the CS B.S. are documented in the University Catalog at \shrunkurl{major}.
 
 \section{Using This Document}
 
-This handbook covers information on how to complete a B.S. or a Minor in Computer Science, and contains information relevant to students pursuing them. If you are pursuing a Masters degree, please refer to the Graduate Handbook instead of this document (\href{http://www.fullerton.edu/ecs/cs/_resources/pdf/CS_GradHandbook_Fall15Version3.pdf}{\url{http://bit.ly/28SBBEQ}}).
+This handbook covers information on how to complete a B.S. or a Minor in Computer Science, and contains information relevant to students pursuing them. If you are pursuing a Masters degree, please refer to the Graduate Handbook instead of this document (\shrunkurl{gradhandbook}).
 
 In order to minimize duplicated information, this document references other documents rather than copying their content. The PDF version of this Handbook presents these references as clickable links.
 
@@ -490,7 +501,7 @@ When in doubt, heed tips such as this one.
 
 This document has been formatted so that it may be printed as a booklet. Print double-sided with staples (or other binding) on the left side. The document will look best if printed in color, but it may also be printed in grayscale (a.k.a. semitone).
 
-Prior versions of this document included a \emph{Major Progress Check Sheet.} This is no longer included, since the \emph{Print Degree Planner} link on the CS B.S. page in the University Catalog (\url{http://bit.ly/28UJMqn}) produces an equivalent checklist form.
+Prior versions of this document included a \emph{Major Progress Check Sheet.} This is no longer included, since the \emph{Print Degree Planner} link on the CS B.S. page in the University Catalog (\shrunkurl{major}) produces an equivalent checklist form.
 
 \chapter{Other Sources of Information}
 
@@ -499,18 +510,15 @@ The following resources supplement this Handbook:
 \item The University Catalog: \url{http://catalog.fullerton.edu/}
 \item Advising:
   \begin{itemize}
-    \item CS Department Advising: \url{http://fullerton.edu/ecs/cs/resources/advisement.asp}
-  \item Center for Academic Support in ECS (CASECS): \url{http://www.fullerton.edu/ecs/resources/casecs.asp}
-  \item Student Success Center: \url{http://www.fullerton.edu/ecs/resources/StudentSuccessCenter.asp}
+    \item CS Department Advising: \shrunkurl{advising}
+  \item Center for Academic Support in ECS (CASECS): \shrunkurl{casecs}
+  \item Student Success Center: \shrunkurl{ssc}
     \item Academic Advisement Center (GE advising): \url{https://www.fullerton.edu/aac/}
     \end{itemize}
-\item Department of Computer Science website: \url{http://fullerton.edu/ecs/cs/}
-  \begin{itemize}
-  \item Student Resources: \url{http://fullerton.edu/ecs/cs/resources/index.asp}
-  \end{itemize}
-\item General Education website: \url{http://www.fullerton.edu/undergraduate/generaledu/}
+\item Department of Computer Science website: \shrunkurl{cs}
+\item General Education (GE) website: \shrunkurl{ge}
 \item Course transfer database: \url{http://www.assist.org}
-\item Center for Internships \& Community Engagement --- Academic Internships: \url{http://www.fullerton.edu/cice/students/internships.php}
+\item Center for Internships \& Community Engagement --- Academic Internships: \shrunkurl{cice}
 \item Catalogs of nearby community colleges:
   \begin{itemize}
     \item Cypress College: \url{http://www.cypresscollege.edu/academics/CollegeCatalog.aspx}
@@ -528,7 +536,7 @@ The following resources supplement this Handbook:
 
 \section{Major Requirements at a Glance}
 
-The requirements for the CS B.S. are detailed in the University Catalog (\url{http://bit.ly/28UJMqn}). The requirements fit into 7 categories:
+The requirements for the CS B.S. are detailed in the University Catalog (\shrunkurl{major}). The requirements fit into 7 categories:
 \begin{enumerate}
 \item \emph{Lower-Division Core:} 100/200-level CPSC courses covering computer programming, data structures, and hands-on software development practices.
 \item \emph{Examination in Programming Proficiency (EPP):} This comprehensive exam establishes mastery of essential Lower-Division Core material, and must be passed before taking most Upper-Division Core and Elective Track courses. \index{examination in programming proficiency (EPP)}
@@ -595,7 +603,7 @@ Before enrolling in Math 150A, you must either have recently passed \emph{MATH 1
 
 \section{Science and Mathematics Electives}
 
-As stated in the University Catalog (\url{http://bit.ly/28UJMqn}), you must complete at least 12 units of natural science and/or mathematics courses chosen from a designated list. The list includes only courses that dovetail with CS material, and may fit within a coherent 12-unit curriculum. Due to GE and ABET requirements, you must take at least one course with a laboratory experience. Eligible laboratory courses are designated in the Catalog.
+As stated in the University Catalog (\shrunkurl{sciencemath}), you must complete at least 12 units of natural science and/or mathematics courses chosen from a designated list. The list includes only courses that dovetail with CS material, and may fit within a coherent 12-unit curriculum. Due to GE and ABET requirements, you must take at least one course with a laboratory experience. Eligible laboratory courses are designated in the Catalog.
 
 Choose a set of courses that support each other and your future studies. Plan ahead, and discuss your plan for this requirement with your adviser.
 
@@ -651,7 +659,7 @@ Scientific Computing is the field of study concerned with constructing mathemati
 
 This track gives you skills needed to construct mathematical models, adapt numerical solutions, and develop computer software to solve scientific and engineering problems.
 
-In order to finish the major Mathematics Requirement and Scientific Computing requirements, you must pass MATH 150A, 150B, 250A, 250B, 338, 340, and 370. These courses together satisfy the requirements for a Mathematics Minor\index{mathematics minor}. See the catalog for more information on the Mathematics Minor (\url{http://bit.ly/28UKl3J}).
+In order to finish the major Mathematics Requirement and Scientific Computing requirements, you must pass MATH 150A, 150B, 250A, 250B, 338, 340, and 370. These courses together satisfy the requirements for a Mathematics Minor\index{mathematics minor}. See the catalog for more information on the Mathematics Minor (\shrunkurl{mathminor}).
 
 \subsection{\CtTrackName}
 \CtTrackIndex
@@ -705,9 +713,9 @@ You may be able to use an adviser-approved course not on this list as an Upper D
 \section{General Education (GE)}
 
 % This link is used multiple times so we define a macro for inserting it.
-\newcommand{\gecourselist}{ ``How do I find which courses are approved for GE?'' (\url{http://bit.ly/28Xs1qe})? }
+\newcommand{\gecourselist}{\emph{How do I find which courses are approved for GE?} (\shrunkurl{gecourses})}
 
-The Undergraduate Studies \& General Education website (\url{http://www.fullerton.edu/undergraduate/generaledu/}) describes University GE\index{general education} requirements in detail. The list of all GE-approved courses is on the \gecourselist page. \CampusName~students are ordinarily required to take at least 51 units and 19 categories of GE courses. CS majors meet some of these requirements through their required courses, and some requirements are waived for CS majors.
+The Undergraduate Studies \& General Education website (\shrunkurl{ge}) describes University GE\index{general education} requirements in detail. The list of all GE-approved courses is on the \gecourselist page. \CampusName~students are ordinarily required to take at least 51 units and 19 categories of GE courses. CS majors meet some of these requirements through their required courses, and some requirements are waived for CS majors.
 
 \begin{center}
 \begin{tabular}{| p{3in} | p{3in} |} \hline
@@ -793,7 +801,7 @@ There is strong demand for expertise in programming, data representation, and co
 To select Computer Science as your minor, visit the CS office and fill out a Request for Minor Objective form.
 
 \section{Minor Requirements at a Glance}
-The requirements for the CS minor are detailed in the University Catalog (\url{http://bit.ly/28ULcBr}). You are required to complete the following courses:
+The requirements for the CS minor are detailed in the University Catalog (\shrunkurl{minor}). You are required to complete the following courses:
 \begin{enumerate}
   \item The same three-course programming sequence (CPSC 120, 121, and 131) as CS majors.
   \item CPSC 313, which satisfies GE B.5.
@@ -843,11 +851,11 @@ The Information Systems and Decision Sciences major includes ISDS 309, which is 
 \section{Transfer}
 \index{transfer}
 
-If you're a transfer student from a California Community College, you should refer to \url{www.assist.org}. A department adviser can help you with these equivalencies and give the required approval.
+If you're a transfer student from a California Community College, you should refer to \url{assist.org}. A department adviser can help you with these equivalencies and give the required approval.
 
-Transfer courses cannot be applied toward the major or accepted as prerequisites until they are recorded in the Titan Degree Audit (TDA) system. You should have your official transcripts sent to the office of Admissions and Records; see \url{http://www.fullerton.edu/admissions/prospectivestudent/admissions_transfers.asp} for more information.
+Transfer courses cannot be applied toward the major or accepted as prerequisites until they are recorded in the Titan Degree Audit (TDA) system. You should have your official transcripts sent to the office of Admissions and Records; see \shrunkurl{admissions} for more information.
 
-To find articulation agreements in the \url{assist.org} database, start by loading the web page \url{www.assist.org}, as shown below.
+To find articulation agreements in the \url{assist.org} database, start by loading the web page \url{http://www.assist.org}, as shown below.
 
 \newcommand{\AssistOrgScreenshot}[1]{
   \begin{center}
@@ -877,15 +885,16 @@ If you explore the page, you will see that IVC offers equivalents for almost all
 
 \section{Computer Science Placement Examination}
 \label{section:placement}
-\index{placement examination}
-Our courses CPSC 120 and CPSC 121 cover computer programming. If you are
-proficient in this material, but do not have academic credit, you may attempt
-to establish your proficiency and skip one or both courses by taking the
-Computer Science Placement Examination. If you have taken CPSC 120, 121, or 131
-at \CampusName, you are not eligible to take the Placement Examination. See the Department's
-section of the University Catalog (\url{http://bit.ly/28UJMqn}) for more information.
+\index{placement examination} Our courses CPSC 120 and CPSC 121 cover
+computer programming. If you are proficient in this material, but do
+not have academic credit, you may attempt to establish your
+proficiency and skip one or both courses by taking the Computer
+Science Placement Examination. If you have taken CPSC 120, 121, or 131
+at \CampusName, you are not eligible to take the Placement
+Examination. See the major's description in the University Catalog
+(\shrunkurl{major}) for more information.
 
-The date, time, and location of Placement Examinations are given in the Department Placement Exams section of the Registration Guide for the current term. You can find Registration Guides at \url{http://admissions.fullerton.edu/currentstudent/registration.php}.
+The date, time, and location of Placement Examinations are given in the Department Placement Exams section of the Registration Guide for the current term. You can find Registration Guides at \shrunkurl{registration}.
 
 \section{Missing CPSC 120 or 121}
 
@@ -899,7 +908,7 @@ taking extra units of CPSC 223 and/or Upper Division CS Electives (listed in Sec
 \section{Advanced Placement (AP)}
 \label{section:ap}
 \index{advanced placement (AP)}
-If you took the Computer Science AP exam and scored well, you may be able to get credit for CPSC 120, or both 120 and 121. See the Credit by Advanced Placement Chart (\url{http://bit.ly/28Zbd0k}) in the University Catalog.
+If you took the Computer Science AP exam and scored well, you may be able to get credit for CPSC 120, or both 120 and 121. See the Credit by Advanced Placement Chart (\shrunkurl{ap}) in the University Catalog.
 
 \section{Internships}
 
@@ -929,13 +938,13 @@ EGGN 495 is a ``supervision only'' class. There are no class meetings. Students 
 Benefits of the internship program in Computer Science include:
 \begin{itemize}
 \item Industrial work experience.
-\item Job placement assistance from the Center for Internships \& Community Engagement (CICE) (\url{http://www.fullerton.edu/cice/students/internships.php}).
+\item Job placement assistance from the Center for Internships \& Community Engagement (CICE) (\shrunkurl{cice}).
 \item Up to 3 units of credit.
 \end{itemize}
 
 We recommend that you consider an internship when you reach junior or senior status.
 
-To register for an internship, follow the instructions at CICE's website (\url{http://www.fullerton.edu/cice/students/internships.php}).
+To register for an internship, follow the instructions at CICE's website (\shrunkurl{cice}).
 
 \section{International Students}
 
@@ -958,7 +967,7 @@ All independent study applications must be approved by the study's faculty advis
 end of the semester prior to the proposal’s start date. That means independent study proposals for the Fall are due in
 by the end of the previous Spring semester and proposals for the Spring are due in the previous Fall semester.
 
-You must submit an Independent Study Application to the department office, which will supply the form. As stated on the form, the Application must be accompanied by a study plan which includes the study's objective(s), the study's outcome(s), a 16 week study plan, the basis for evaluation, and the date(s) that student work is due. A template is available at \url{https://goo.gl/VqxjtD}.
+You must submit an Independent Study Application to the department office, which will supply the form. As stated on the form, the Application must be accompanied by a study plan which includes the study's objective(s), the study's outcome(s), a 16 week study plan, the basis for evaluation, and the date(s) that student work is due. A template is available at \shrunkurl{isplan}.
 
 You may take up to three units per semester, and apply a maximum of three units towards the degree. The University allows a maximum of nine units, but the Computer Science Department allows only three units.
 
@@ -996,7 +1005,7 @@ You should make an advisement appointment as early as possible. The department a
 
 \section{Nearing Graduation (Within One Year)}
 \index{graduation}
-After completing 90 units of coursework, you are eligible to apply for graduation. The only way to apply for graduation is online through the TITAN Online Student Center. You cannot graduate without a completed Grad Check. \index{grad check} The University Catalog has more information on Grad Checks (\url{http://bit.ly/28ULqbE}).
+After completing 90 units of coursework, you are eligible to apply for graduation. The only way to apply for graduation is online through the TITAN Online Student Center. You cannot graduate without a completed Grad Check. \index{grad check} The University Catalog has more information on Grad Checks (\shrunkurl{gradcheck}).
 
 \section{Probation}
 \index{probation}
@@ -1013,11 +1022,11 @@ If you are subject to unusual circumstances that you feel are not accommodated a
 \item File a \emph{Petition} form to request an exception to any Department policy other than course prerequisites.
 \end{enumerate}
 
-Blank forms are available at \url{http://www.fullerton.edu/ecs/cs/resources/documents.php}, or as hard-copies in the Department office. To file a petition, submit a completed hard-copy form to the Department office. Petitions are generally processed within two weeks while Fall or Spring classes are in session, or three weeks during the Summer and Intersession. After this time has elapsed, contact the Department office to find out whether your petition was approved or denied.
+Blank forms are available at \shrunkurl{forms}, or as hard-copies in the Department office. To file a petition, submit a completed hard-copy form to the Department office. Petitions are generally processed within two weeks while Fall or Spring classes are in session, or three weeks during the Summer and Intersession. After this time has elapsed, contact the Department office to find out whether your petition was approved or denied.
 
 The Department strives to minimize prerequisites and make its policies as flexible as possible. As such, established policies handle most situations appropriately, and petitions are only granted in truly exceptional situations. The burden is on the petitioner to justify why a petition ought to be approved; the Department need not justify why a petition is denied. Petition verdicts are final and non-negotiable.
 
-See the Student Rights section of the Catalog (\url{http://bit.ly/28RvnaE}) for more information on petitions.
+There is a University-level formalized petition process that is described in the Student Rights section of the Catalog (\shrunkurl{studentrights}).
 
 \chapter{Progress Flowcharts}
 
