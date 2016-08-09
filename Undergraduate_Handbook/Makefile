@@ -13,8 +13,9 @@ $(AUX_FILE): $(TEX_FILE)
 $(IDX_FILE): $(AUX_FILE)
 	makeindex $(IDX_FILE)
 
-$(PDF_FILE): $(IDX_FILE)
-	pdflatex $(TEX_FILE)
+$(PDF_FILE): $(IDX_FILE) $(AUX_FILE)
+	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(TEX_FILE)
 
 clean:
-	rm -f $(AUX_FILE) $(IDX_FILE) $(PDF_FILE) $(BASENAME).log $(BASENAME).toc
+	latexmk -CA
+
