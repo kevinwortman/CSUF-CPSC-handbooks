@@ -21,7 +21,7 @@
 }
 
 
-\newcommand{\IsDraft}{0} % assign nonzero for DRAFT watermark, zero for no watermark
+\newcommand{\IsDraft}{1} % assign nonzero for DRAFT watermark, zero for no watermark
 
 \newcommand{\UsePDFCourseGraph}{1} % assign nonzero for PDF course graph, zero for original LaTeX course graph 
 
@@ -414,7 +414,7 @@
 
 \begin{document}
 
-\title{Undergraduate Handbook \\ 2016-2017 Edition}
+\title{Undergraduate Handbook \\ 2018-2019 Edition}
 \author{Department of Computer Science \\ California State University, Fullerton}
 \date{Draft: \today}
 \maketitle
@@ -449,7 +449,7 @@ Whenever you have a question about the Department---its policies, its curriculum
 \index{contact information}
 \begin{tabular}{r p{6in}} % right column in p mode so postal address can have newlines
   Web: & \url{http://fullerton.edu/ecs/cs/} or \shrunkurl{cs} \\ \index{website}
-  E-mail: & \href{mailto:csoffice@ecs.fullerton.edu}{\url{csoffice@ecs.fullerton.edu}} \\ \index{e-mail}
+  E-mail: & \href{mailto:csoffice@fullerton.edu}{\url{csoffice@fullerton.edu}} \\ \index{e-mail}
   In person: & Room CS-522 \\ \index{department office}
   Telephone: & (657) 278-3700 \\ \index{phone number} \index{telephone number}
   Fax: & (657) 278-7168 \\ \index{fax number}
@@ -613,11 +613,11 @@ Choose a set of courses that support each other and your future studies. Plan ah
 PHYS 225, 225L, 226, 226L, and MATH 250A provide a strong foundation for later CS courses, meet all Science and Mathematics requirements, and fit within 12 units. Take this set of electives unless you are working toward a specific study plan focusing on biology, chemistry, geology, or mathematics.
 \end{tip}
 
-MATH 250A and MATH 250B may not be counted toward both the Scientific Computing Track \ScTrackIndex and Science and Mathematics Electives. Students who apply these courses toward Science and Mathematics Electives may substitute adviser-approved 400-level CPSC courses to meet the 15-unit requirement of the Scientific Computing Track.
+%MATH 250A and MATH 250B may not be counted toward both the Scientific Computing Track \ScTrackIndex and Science and Mathematics Electives. Students who apply these courses toward Science and Mathematics Electives may substitute adviser-approved 400-level CPSC courses to meet the 15-unit requirement of the Scientific Computing Track.
 
-\begin{tip}
-If you are working toward the Scientific Computing Track, complete this requirement with  MATH 250A, MATH 250B, PHYS 225, and PHYS 225L. This will give you substantial flexibility in choosing electives to finish the track, and help you complete prerequisite courses rapidly.
-\end{tip}
+%\begin{tip}
+%If you are working toward the Scientific Computing Track, complete this requirement with  MATH 250A, MATH 250B, PHYS 225, and PHYS 225L. This will give you substantial flexibility in choosing electives to finish the track, and help you complete prerequisite courses rapidly.
+%\end{tip}
 
 The two-semester biology sequence is BIOL 151 and BIOL 152. This sequence replaced older courses numbered BIOL 171 and 172. Current students should take 151 and 152, but you may see references to 171 and 172 in some documents. Students who took 171 and 172 while they were offered may count those courses toward the Science and Mathematics Electives requirement.
 
@@ -640,7 +640,7 @@ The University requires that every bachelor degree candidate take an upper divis
 \index{elective tracks} \index{tracks}
 Computer Science is a very broad field and the technologies in each area change rapidly. Elective tracks provide you with flexible choices of elective courses so you can quickly adapt to rapid technology advancements and meet your professional goals.
 
-You must select an elective track aimed at your specific career goals. There are five tracks to choose from. The requirements for each track are given in the Catalog.
+%You must select an elective track aimed at your specific career goals. There are five tracks to choose from. The requirements for each track are given in the Catalog.
 
 \subsection{\MgTrackName}
 \MgTrackIndex
@@ -741,7 +741,7 @@ The Undergraduate Studies \& General Education website (\shrunkurl{ge}) describe
 
 This leaves 27 units and 10 categories which must be satisfied by additional courses.
 
-In addition, \CampusName~students are required to take at least 9 units of GE at the upper-division (300/400) level. 4 of these are satisfied by MATH 338, so at least 5 of your additional GE units must be upper-division. CS majors must use EGCE/CP/EE/ME 401 to satisfy GE area D.1, leaving 2 units which may be satisfied by choosing an upper-division course in area C.3.
+In addition, \CampusName~students are required to take at least 6 units of GE at the upper-division (300/400) level. 4 of these are satisfied by MATH 338, so at least 2 of your additional GE units must be upper-division.
 
 The following table lists the remaining GE categories, and a suggested course for each category.
 
@@ -768,15 +768,17 @@ upper-division class standing.
 \end{tip}
 
 \begin{tip}
-To conserve units, make sure that the course you take for category C.3 is upper-division and also satisfies category Z. Z-category courses are marked with an asterisk on the \gecourselist page.
+To conserve units, make sure that the course you take for category C.4 is upper-division and also satisfies category Z. Z-category courses are marked with an asterisk on the \gecourselist page.
 \end{tip}
 
-\begin{tip}
-  To conserve units, take HIST 110A to satisfy area C.4, so that you will be waived out of GE area D.2.
-  \end{tip}
+%\begin{tip}
+%  To conserve units, take HIST 110A to satisfy area C.4, so that you will be waived out of GE area D.2.
+%\end{tip}
 
 \begin{tip}
-CS majors must satisfy GE area D.1 with EGCE/CP/EE/ME 401.
+ Catalog years Fall 2015 through Spring 2018, CS majors must satisfy GE area D.1 with EGCE/CP/EE/ME 401.
+
+ Starting in Fall 2018, CS majors may use any D.1 course.
 \end{tip}
 
 \section{Academic Requirements}
@@ -788,20 +790,26 @@ Grade requirements for courses are summarized below.
 \begin{center}
 \begin{tabular}{|p{3in}|l|} \hline
   \textbf{Course Type} & \textbf{Minimum Grade} \\ \hline
-  Lower-Division Core & \multirow{2}{*}{C-} \\
+  Lower-Division Core & \multirow{2}{*}{D-} \\
   Upper-Division Core, except CPSC 311 & \\ \hline
   CPSC 311 (upper-division writing) & C \\ \hline
-  Mathematics Requirements & \multirow{3}{*}{C- (also see the Six Units of ``D'' Rule below)} \\
+  Mathematics Requirements & \multirow{3}{*}{D-} \\
   Science and Mathematics Electives & \\
   Elective Track & \\ \hline
   GE courses, including MATH 150A, MATH 338, EGCE/CP/EE/ME 401 & \multirow{2}{*}{C-} \\ \hline
 \end{tabular}
 \end{center}
 
-\subsection{Six Units of ``D'' Rule}
-\label{subsection:six_units_of_d}
+\subsection{Grades}
+\label{subsection:grades}
+A repeatable grade is a ``D'', ``F'', or ``W'' grade. Students may repeat courses for which a ``C-'' or lower grades were earned at CSUF or other institutions. When repeating a course, the tradition grading system (``A'', ``B'', ``C'', etc.) shall be used (i.e. ``CR''/``NC'' is not an option). In computing the grade-point average, only the most recently earned grades and grad epoints shall be used for the first 16 units of repeated. This is called grade forgiveness yet the original grade shall remain on your academic record.
 
-A total of up to six units of grades in the range ``D-'' through ``D+'' may be applied toward major Mathematics Requirements, Science and Mathematics Electives, and Elective Track courses. These ``D'' units are not counted automatically; you must file an Undergraduate Grade Forgiveness Request\index{request form} form to have them counted. See section \ref{section:request_forms}.
+In the case of any repetition beyond the 16-unit limit or in courses for which a C or better grade was awarded, both grades are considered in computing grade-point averages. Students may be permitted to repeat an additional 12 units in addition to the 16 units for which grade forgiveness is permitted. This process is by petition through Admissions \& Records and you must seek the support of an academic advisor and the department chair. The repeat grade shall not replace the original grade. Both grades shall be calculated in the student’s overall grade-point average.
+
+Students earning a grade of ``D-'' (grade-point 0.7) or better have earned a passing grade and will earn the units towards their degree. Students must have a grade-point average of 2.0 or greater to earn a degree.
+
+Students are strongly advised to repeat courses that lay the foundation for their education such as their lower- and upper-division core courses. In circumstances were a student earns a grade between ``D-'' and ``C+'' due to poor health, difficulties outside of the classroom, or other circumstances that impacted the student's ability to succeed, the student is strongly recommended to meet with an academic advisor and determine in consultation with the advisor if not repeating the class is in the student's best interest.
+
 
 \chapter{The CS Minor}
 
@@ -870,7 +878,7 @@ To find articulation agreements in the \url{assist.org} database, start by loadi
 
 \newcommand{\AssistOrgScreenshot}[1]{
   \begin{center}
-    \includegraphics[width=\textwidth]{assist-#1.png}
+    \includegraphics[width=\textwidth]{images/assist-#1.png}
   \end{center}
 }
 
