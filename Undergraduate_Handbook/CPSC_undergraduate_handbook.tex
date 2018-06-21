@@ -331,7 +331,7 @@
 
 \newcommand{\GeCourse}[2]{ \GenericFlowchartCourse{\GeColor}{GE #1 \\ #2} }
 
-% \HarmonizedFlowchart{name}{223 course name}{track1}{track2}...{track5}
+% \HarmonizedFlowchart{name}{track1}{track2}...{track6}
 \newcommand{\HarmonizedFlowchart}[7]{
   \clearpage
   \begin{tikzpicture}[FlowchartStyle]
@@ -358,43 +358,43 @@
     \FallSemester{2}
     \CoreCourse{CPSC 131}
     \ScienceMathElectiveCourse{MATH 250A}
-    \GeCourse{C.4}{HIST 110A}
-    \GeCourse{D.3}{HIST 170A}
-    \GeCourse{D.4}{POSC 100}
+    \GeCourse{C.3}{HIST 110A}
+    \GeCourse{D.1}{SOCI 110}
+    \GeCourse{D.2}{HIST 190}
     
     \SpringSemester
-    \CoreCourse{#2} % 223
-    \ScienceMathElectiveCourse{PHYS 225+L}
+    \CoreCourse{223}
     \CoreCourse{CPSC 240}
-    \CoreCourse{CPSC 254}
-    \CoreCourse{CPSC 332}
+    \ScienceMathElectiveCourse{MATH 250B}
+    \ScienceMathElectiveCourse{PHYS 225+L}
+    \GeCourse{D.3}{POSC 100}
 
     % upper division
     \FallSemester{3}
     \CoreCourse{CPSC 351}
     \CoreCourse{CPSC 311}
+    \CoreCourse{CPSC 332}
     \MathRequirementCourse{MATH 338}
-    \TrackCourse{#3} % track1
+    \TrackCourse{#2} % track1
 
     \SpringSemester
     \CoreCourse{CPSC 335}
     \CoreCourse{CPSC 471}
     \CoreCourse{CPSC 362}
-    \ScienceMathElectiveCourse{PHYS 226+L}
-    \TrackCourse{#4} % track2
+    \TrackCourse{#3} % track2
+    \GeCourse{MUS 303}
 
     \FallSemester{4}
     \CoreCourse{CPSC 323}
     \CoreCourse{CPSC 481}
-    \GeCourse{D.1}{EGxx 401}
-    \GeCourse{C.3 \& Z}{MUS 303}
-    \TrackCourse{#5} % track3
+    \TrackCourse{#4} % track3
+    \TrackCourse{#5} % track4
 
     \SpringSemester
     \CoreCourse{CPSC 315}
     \CoreCourse{CPSC 440}
-    \TrackCourse{#6} % track4
-    \TrackCourse{#7} % track5
+    \TrackCourse{#6} % track5
+    \TrackCourse{#7} % track6
     
     % legend at the bottom
     \FlowchartLabel{0}{-12}{Color Legend:}
@@ -585,7 +585,22 @@ Choose \emph{CPSC 223J - Java Programming} if you plan on taking web-related cou
   Python is used in many upper-division courses, so unless you are on one of the two specific paths above, take \emph{CPSC 223P - Python Programming}.
 \end{tip}
 
-The Lower Division Core includes \emph{CPSC 254 - Software Development with Open Source Systems,} which carries 3 units. You may not use \emph{CPSC 253U - Workshop in UNIX} in lieu of 254. Only CPSC 254 counts toward the CS major. 253U is intended only for Computer Engineering majors and carries only 1 unit.
+Students enrolled in CSPC 120, CPSC 121, and CPSC 131 are recommended to use the Computer Science Department’s official GNU/Linux development environment, Tuffix. Tuffix is Tuffy the Titan’s Linux distribution.
+
+Instructions on how to install Tuffix or a Tuffix based VM are online at \shrunkurl{tuffixinstall}. The Tuffix Titanium Community for Students, \url{https://communities.fullerton.edu/course/view.php?id=1547} is the best venue to receive help with Tuffix.
+
+Students may self-enroll in the community; first login to your portal, then navigate to \emph{Titanium communities}, next under the dashboard to the left – click \emph{Site home}, then click \emph{Search Courses} on the right, search for ‘Tuffix’, in the results click \emph{Tuffix Students}, under the gear in the upper right select \emph{Enrol me in this course}, finally click on the button \emph{Enrol me}. You may unenroll at any time.
+
+The Tuffix home page is \url{https://github.com/kevinwortman/tuffix}. 
+
+Students interested in using Microsoft development tools may request a Dreamspark account at \url{http://dsreqform.ecs.fullerton.edu/}. A student may, at no monetary cost, download full featured versions of Microsoft Visual Studio.
+
+Students interested in using Apple development tools can freely download Xcode through the App Store application bundled with macOS. Students may download Xcode directly from \url{https://developer.apple.com/xcode/}.
+
+A CentOS-based shell server is available through secure shell (ssh) and secure file transfer protocol (sftp). The hostname is ecs.fullerton.edu. If your email address is malcolm@csu.fullerton.edu, then your username is malcolm. If you are using a command-line ssh client, then your command to connect to ecs.fullerton.edu will be `ssh malcolm@ecs.fullerton.edu`.
+
+
+%The Lower Division Core includes \emph{CPSC 254 - Software Development with Open Source Systems,} which carries 3 units. You may not use \emph{CPSC 253U - Workshop in UNIX} in lieu of 254. Only CPSC 254 counts toward the CS major. 253U is intended only for Computer Engineering majors and carries only 1 unit.
 
 \section{Examination in Programming Proficiency (EPP)}
 \index{examination in programming proficiency (EPP)}
@@ -593,11 +608,13 @@ You must pass the Examination in Programming Proficiency (EPP) before taking mos
 
 \begin{tip}
   Take the EPP as soon as possible after completing CPSC 131.
-  \end{tip}
+\end{tip}
 
 The EPP is given as part of \emph{CPSC 301 - Programming Lab Practicum.} You must register in CPSC 301 and attend the first two weeks of the course. After an orientation meeting at the first class meeting, you will take a two-part exam during the second and third class meetings. You will be notified at the fourth meeting whether you have passed or not. If you pass, you may drop the course before the end of the second week of classes. You are responsible for dropping the class; you will not be automatically dropped if you pass the exam. If you do not pass, you must continue in CPSC 301 and work on your programming skills. Passing CPSC 301 is equivalent to passing the Examination in Programming Proficiency.
 
 The EPP is a prerequisite for several 300-level core courses as shown in the prerequisite tree in Section \ref{section:major_prerequisite_tree}. These courses are in turn prerequisites for other 300/400-level courses. The EPP is a prerequisite for the remaining 400-level courses that aren’t in this thread, except for \emph{CPSC 440 - Computer System Architecture.} There are very few upper-division courses that you can take without first passing the EPP or CPSC 301. You should consult the Department Office for advisement.
+
+More information about the EPP is available online at \shrunkurl{epp}.
 
 \section{Mathematics Requirements}
 
@@ -636,50 +653,31 @@ The University requires that every bachelor degree candidate take an upper divis
   \end{enumerate}
 \end{tip}
 
-\section{Elective Tracks}
-\index{elective tracks} \index{tracks}
-Computer Science is a very broad field and the technologies in each area change rapidly. Elective tracks provide you with flexible choices of elective courses so you can quickly adapt to rapid technology advancements and meet your professional goals.
+\section{Computer Science Electives}
+\label{section:cs_electives}
+\index{CS electives}
+\index{electives}
+You must select 6 elective courses to satisfy your degree requirements. Select elective courses that are best aligned to your personal objectives. For example, if you aspire to create web applications and mobile apps, then courses such as CPSC 353, CPSC 411, CPSC 349 and CPSC 476 are excellent choices. Consult mentors and advisors in selecting the elective courses that match your goals.
 
-%You must select an elective track aimed at your specific career goals. There are five tracks to choose from. The requirements for each track are given in the Catalog.
+Courses outside of the computer science department may be used as elective courses. You must seek approval from a major advisor before taking the course.
 
-\subsection{\MgTrackName}
-\MgTrackIndex
-Interactive entertainment and computer-animated visual effects are now part of our mainstream culture. Creating such sophisticated computer graphics in the video games and animations requires a delicate blending of art with science by teams of highly skilled professionals. Artists, animators, writers, designers, and software developers work long hours with cutting-edge technology and tools. This track gives you the necessary skills in multimedia/digital animation and simulation, human/computer interfaces, digital game development and production.
+\subsection{Upper Division CS Electives}
+\label{section:lower_division_cs_electives}
+\index{lower division CS electives}
+\index{electives}
+You may complete at most 3.0 units of Lower Division CS Electives.
 
-\subsection{\IsTrackName}
-\IsTrackIndex
-Cybersecurity is the practice of protecting information systems and computer systems from criminal abuse and unauthorized access. It is a multifacetted area of computer science that touches developing the formalisms to define what security is, the practice of designing and implementing secure software, and developing a technical background to put a student's knowledge into practice. Students select from a number of different courses that touch upon securing cloud-based systems, protecting computer communication networks, and cryptography - the art and science of coded messaging.
+Students that are need additional units due to the Placement Examination, transfer, or other circumstances are encouraged to consult with a major advisor and select upper division CS Electives.
+\begin{itemize}
+\item CPSC 254 - Software Development with Open Source Systems
+\end{itemize}
 
-\subsection{\IeTrackName}
-\IeTrackIndex
-The Internet is an essential technology for most computer users. Although Internet technology provides many people with convenience and opportunity, it provides computer scientists with challenges since the Internet applications must be scalable, distributed, secure, and high performance. This track gives you the skills needed to develop enterprise-wide Internet applications using current technologies.
-
-\subsection{\SeTrackName}
-\SeTrackIndex
-Software Engineering (SE) is the application of a systematic, disciplined, quantifiable approach to the development, operation and maintenance of software. I.e., application of engineering of software and the study of approaches in it (IEEE).  The foundation of SE is the way we build the software which includes process models, methods, tools, and management.  This track will prepare students to have necessary skills on how to apply engineering and management principles to software construction including analysis, design, architecture, quality assurance, and project management of software using various process models.
-
-\subsection{\ScTrackName}
-\ScTrackIndex
-
-Scientific Computing is the field of study concerned with constructing mathematical models and numerical solutions, using computers to solve scientific and engineering problems that typically require massive amounts of computation.
-
-This track gives you skills needed to construct mathematical models, adapt numerical solutions, and develop computer software to solve scientific and engineering problems.
-
-In order to finish the major Mathematics Requirement and Scientific Computing requirements, you must pass MATH 150A, 150B, 250A, 250B, 338, 340, and 370. These courses together satisfy the requirements for a Mathematics Minor\index{mathematics minor}. See the catalog for more information on the Mathematics Minor (\shrunkurl{mathminor}).
-
-\subsection{\CtTrackName}
-\CtTrackIndex
-
-This track provides you with great flexibility to build your knowledge and skills in special areas of interest. You can use it to meet the requirements of specific industry sectors or companies, or your personal academic goals.
-
-The Custom track is intended to accomodate student career goals that are not served by any of the four other, more focused, tracks. For example, a student may wish to focus on an emerging area such as cybersecurity, robotics, or data science. If you intend to complete the Custom track, work with your adviser to make a plan for a set of courses that form a coherent course of study aligned with your goals.
-
-\section{Upper Division CS Electives}
+\subsection{Upper Division CS Electives}
 \label{section:upper_division_cs_electives}
 \index{upper division CS electives}
 \index{electives}
 
-Your Elective Track will require you to take some number of Upper Division CS Electives. You may need to take additional electives if you are short on units due to the Placement Examination, transfer, or other circumstances.
+Your are require you to complete at least 15.0 units of Upper Division CS Electives. You may need to take additional electives if you are short on units due to the Placement Examination, transfer, or other circumstances.
 
 A course may be used as an Upper Division CS Elective if it is a 3-unit, upper-division, CPSC course that is not an Upper Division Core requirement. Therefore, the following courses may count as Upper Division CS Electives:
 \begin{itemize}
@@ -874,7 +872,7 @@ The requirements for the CS minor are detailed in the University Catalog (\shrun
   \item One Minor Elective: an adviser-approved 3-unit 300/400-level CS course. Advisors will not approve CPCS 311 (Upper Division Writing Requirement), CPSC 313 (G.E. Course), and CPSC 315 (CS Majors Professional Ethics Course) towards this requirement.
 \end{enumerate}
 
-You may have to take additional courses to meet the prerequisites for your CS courses. The upper-division courses that are available to students after successfully completing CPSC 131 are CPSC 332 and CPSC 386. Upper division courses that you can take after taking and passing the EPP are CPSC 323 and CPSC 411. If a student completes MATH 270B or MATH 280, CPSC 439 is an option. If CPSC 254 or CPSC 253U is completed, CPSC 351 is another option.
+You may have to take additional courses to meet the prerequisites for your CS courses. The upper-division courses that are available to students after successfully completing CPSC 131 are CPSC 332, CPSC 351, and CPSC 386. Upper division courses that you can take after taking and passing the EPP are CPSC 323 and CPSC 411. If a student completes MATH 270B or MATH 280, CPSC 439 is an option.
 
 Computer Engineering majors may count one lower division course towards the CS minor. In other words, one of the CPSC 120, CPC 121, or CPSC 131 courses count towards the CS minor. Computer Engineerings majors must take additional 200-level, 300-level, or 400-level courses to satisfy the minor's requirements.
 
@@ -1135,23 +1133,9 @@ If you are on probation, it is definitely time to see an adviser. Until you do s
 
 \chapter{Progress Flowcharts}
 
-The following flowcharts are examples of semester-by-semester class plans for various trajectories through the B.S. program. These plans complete all major requirements in 8 semesters (4 years), satisfy all prerequisites along the way, and follow all tips in this Handbook. There are flowcharts for the following academic plans:
-\begin{enumerate}
-\item \IsTrackName
-\item \IeTrackName
-\item \MgTrackName
-\item \SeTrackName
-\end{enumerate}
+The following flowchart is an examples of semester-by-semester class plan through the B.S. program. This plan completes all major requirements in 8 semesters (4 years), satisfy all prerequisites along the way, and follow all tips in this Handbook.
 
-\HarmonizedFlowchart{\IsTrackName}{CPSC 223C}{CPSC 452}{CPSC 353}{CPSC 454}{CPSC 456}{CPSC 463}
-
-\HarmonizedFlowchart{\IeTrackName}{CPSC 223J}{CPSC 386}{CPSC 353}{CPSC 473}{CPSC 431}{CPSC 476}
-
-\HarmonizedFlowchart{\MgTrackName}{CPSC 223P}{CPSC 386}{CPSC 484}{CPSC 486}{CPSC 489}{CPSC 411}
-
-\HarmonizedFlowchart{\SeTrackName}{CPSC 223P}{CPSC 462}{CPSC 464}{CPSC 411}{CPSC 463}{CPSC 353}
-
-\HarmonizedFlowchart{\ScTrackName}{CPSC 223P}{MATH 250B}{MATH 340}{MATH 370}{CPSC 439}{BIOL 151}
+\HarmonizedFlowchart{Generic Four Year Plan}{CPSC Elective 1}{CPSC Elective 2}{CPSC Elective 3}{CPSC Elective 4}{CPSC Elective 5}{CPSC Elective 6}
 
 \chapter{Credits and Revision History}
 
