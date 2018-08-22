@@ -20,15 +20,15 @@
   times,          % font choice
 }
 
-% assign nonzero for DRAFT watermark, zero for no watermark
-\newcommand{\IsDraft}{1}
+% assign nonzero for DRAFT watermark, 0 for no watermark
+\newcommand{\IsDraft}{0}
 
-% assign nonzero for PDF course graph, zero for original LaTeX course graph 
+% assign nonzero for PDF course graph, zero for original LaTeX course graph
 \newcommand{\UsePDFCourseGraph}{1}
 
 % for time-critical course hatching
 \usetikzlibrary{patterns}
-    
+
 % Don't say "Chapter 3", just "3"
 \renewcommand{\chaptername}{}
 
@@ -172,7 +172,7 @@
         \TimeCriticalTreeCourse{CPSC}{481}{3}{-6}
         \StraightPrereq{335}{270B} \StraightPrereq{335}{338} \StraightPrereq{335}{301}
         \StraightPrereq{481}{335}
-  
+
         % 131 follow-ons
         \TreeCourse{CPSC}{240}{5}{-3}
         \TreeCourse{CPSC}{223}{7}{-3}
@@ -185,7 +185,7 @@
         % 440 below 240
         \TreeCourse{CPSC}{440}{5}{-6}
         \StraightPrereq{440}{240}
-  
+
         % 351, 471 under 254
         \TreeCourse{CPSC}{351}{12}{-4}
         \TreeCourse{CPSC}{471}{12}{-6}
@@ -204,11 +204,11 @@
 
         % legend
         \node at (12.5, -9) {\underline{Legend}};
-  
+
         \TimeCriticalTreeCourse{time-critical}{course}{10}{-10}
-  
+
         \TreeCourse{}{other course}{10}{-11}
-  
+
         \TreeCourse{}{A}{9}{-12}
         \TreeCourse{}{B}{11}{-13}
         \StraightPrereq{B}{A}
@@ -219,7 +219,7 @@
         %\TreeCourse{}{D}{11}{-14}
         %\Coreq{C}{D}
         %\node at (14, -14) {C and D are corequisites};
-  
+
       \end{tikzpicture}
     \end{center}
   \else
@@ -335,33 +335,33 @@
 \newcommand{\HarmonizedFlowchart}[7]{
   \clearpage
   \begin{tikzpicture}[FlowchartStyle]
-    
+
     % title
     \node [FlowchartStyle, align=left, anchor=west, minimum width=2in] at (\FlowchartTitleX, \FlowchartTitleY) { {\LARGE #1} };
 
     % lower division
-    
+
     \FallSemester{1}
     \CoreCourse{CPSC 120}
     \MathRequirementCourse{CPSC 270A}
     \MathRequirementCourse{CPSC 150A}
     \GeCourse{A.1}{HCOM 102}
     \GeCourse{A.2}{ENGL 101}
-    
+
     \SpringSemester
     \CoreCourse{CPSC 121}
     \MathRequirementCourse{MATH 270B}
     \MathRequirementCourse{MATH 150B}
     \GeCourse{C.1}{ART 101}
     \GeCourse{C.2}{PHIL 100}
-    
+
     \FallSemester{2}
     \CoreCourse{CPSC 131}
     \ScienceMathElectiveCourse{MATH 250A}
     \GeCourse{C.3}{HIST 110A}
     \GeCourse{D.1}{SOCI 110}
     \GeCourse{D.2}{HIST 190}
-    
+
     \SpringSemester
     \CoreCourse{223}
     \CoreCourse{CPSC 240}
@@ -395,7 +395,7 @@
     \CoreCourse{CPSC 440}
     \TrackCourse{#6} % track5
     \TrackCourse{#7} % track6
-    
+
     % legend at the bottom
     \FlowchartLabel{0}{-12}{Color Legend:}
     \FlowchartBox{\CoreColor}{Core Course}{3}{-12}
@@ -403,7 +403,7 @@
     \FlowchartBox{\ScienceMathElectiveColor}{Science/Math Elect.}{9}{-12}
     \FlowchartBox{\TrackColor}{Track Course}{12}{-12}
     \FlowchartBox{\GeColor}{Gen. Ed.}{15}{-12}
-    
+
   \end{tikzpicture}
 }
 
@@ -595,7 +595,7 @@ Catalog (\shrunkurl{major}). The requirements fit into 7 categories:
   round out a broad, liberal arts education, and satisfy University
   graduation requirements.
 \end{enumerate}
-  
+
 Our accreditor, ABET\index{ABET}, requires at least 30 units of
 mathematics and science courses. The Mathematics Requirements and
 Science and Mathematics Electives together satisfy this 30-unit
@@ -1176,7 +1176,7 @@ minor.
 
 The Information Systems and Decision Sciences major includes ISDS 309,
 which is not equivalent to any CPSC course.
- 
+
 \chapter{Alternative Pathways}
 
 \section{Transfer}
@@ -1465,7 +1465,7 @@ conflict.
   (657) 278-4407, csantana@fullerton.edu
 \item Assistant Dean International Programs and Global Engagement
   Lillybeth Sasis, CS-206A, (657) 278-4881, lsasis@fullerton.edu
-\end{itemize} 
+\end{itemize}
 
 \section{Major Advisement}
 \index{advisement!major} Students may seek major advising from major
